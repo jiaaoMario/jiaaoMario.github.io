@@ -16,20 +16,22 @@
   <meta name="author" content="Mario.ma">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="北京的疫情反反复复，至今已喜提两次居家隔离 👿。好在最近版本迭代已完成，可以抽出时间静下心来做些技术拓展。 本文你将了解到什么？本文将从 hybrid 的基本架构和混合式开发的理论实现入手，通过分析 JockeyJs 的源码从而了解整个 Hybrid 的原理。 什么是 hybrid?随着移动端设备的大规模普及，Hybrid 已经成为了最主流的快速迭代方案。Hybrid 基于 H5 的灵活的开发模">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2022/05/12/hello-world/index.html">
+<meta property="og:title" content="解密H5与Native的爱恨情仇">
+<meta property="og:url" content="http://example.com/2022/03/12/%E6%8F%AD%E7%A7%98H5%E4%B8%8ENative%E7%9A%84%E7%88%B1%E6%81%A8%E6%83%85%E4%BB%87/index.html">
 <meta property="og:site_name" content="Mario.ma 的个人博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="北京的疫情反反复复，至今已喜提两次居家隔离 👿。好在最近版本迭代已完成，可以抽出时间静下心来做些技术拓展。 本文你将了解到什么？本文将从 hybrid 的基本架构和混合式开发的理论实现入手，通过分析 JockeyJs 的源码从而了解整个 Hybrid 的原理。 什么是 hybrid?随着移动端设备的大规模普及，Hybrid 已经成为了最主流的快速迭代方案。Hybrid 基于 H5 的灵活的开发模">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-12T13:10:49.787Z">
-<meta property="article:modified_time" content="2022-05-12T13:10:49.787Z">
+<meta property="article:published_time" content="2022-03-12T14:47:06.000Z">
+<meta property="article:modified_time" content="2022-05-12T17:15:19.491Z">
 <meta property="article:author" content="Mario.ma">
+<meta property="article:tag" content="hybrid">
+<meta property="article:tag" content="混合式开发">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>Hello World - Mario.ma 的个人博客</title>
+  <title>解密H5与Native的爱恨情仇 - Mario.ma 的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hello World"></span>
+            <span id="subtitle" data-typed-text="解密H5与Native的爱恨情仇"></span>
           
         </div>
 
@@ -203,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-12 21:10" pubdate>
-          2022年5月12日 晚上
+        <time datetime="2022-03-12 22:47" pubdate>
+          2022年3月12日 晚上
         </time>
       </span>
     
@@ -215,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          undefined 字
+          1.8k 字
         
       </span>
     
@@ -226,7 +228,7 @@
         
         
         
-          NaN 分钟
+          15 分钟
         
       </span>
     
@@ -264,30 +266,55 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Hello World</h1>
+            <h1 style="display: none">解密H5与Native的爱恨情仇</h1>
             
             <div class="markdown-body">
               
-              <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+              <p>北京的疫情反反复复，至今已喜提两次居家隔离 👿。好在最近版本迭代已完成，可以抽出时间静下心来做些技术拓展。</p>
+<h2 id="本文你将了解到什么？"><a href="#本文你将了解到什么？" class="headerlink" title="本文你将了解到什么？"></a>本文你将了解到什么？</h2><p>本文将从 hybrid 的基本架构和混合式开发的理论实现入手，通过分析 JockeyJs 的源码从而了解整个 Hybrid 的原理。</p>
+<h2 id="什么是-hybrid"><a href="#什么是-hybrid" class="headerlink" title="什么是 hybrid?"></a>什么是 hybrid?</h2><p>随着移动端设备的大规模普及，Hybrid 已经成为了最主流的快速迭代方案。Hybrid 基于 H5 的灵活的开发模式，例如嵌入 App 内置 webview 组件框架内，加以 Native 提供的部分原生能力，从而给予用户提供可媲美原生 App 的使用体验。我司基金股票交易 App 便是基于该架构进行实践的，并将入金等核心页面使用 Hybrid 实现，运行至今一直稳定并保持了优异的用户体验，可见，在无数个实践中，Hybrid 是值得我们信赖的。</p>
+<h2 id="hybrid-的设计方案"><a href="#hybrid-的设计方案" class="headerlink" title="hybrid 的设计方案"></a>hybrid 的设计方案</h2><ol>
+<li>基于 WebView 容器，通过 JsBridge 实现 H5 与 Native 的交互通讯。</li>
+<li>使用社区内部提供的 Native UI 方案，例如利用 React 在编译时是基于 Virtual DOM 为切入点,传递至 Native 并进行原生渲染。</li>
+<li>小程序方案，例如微信小程序、支付宝小程序。</li>
+</ol>
+<p>我司混合式开发架构采用的是第一种：WebView 容器架构。接下来主要探讨的也主要是这一模式。</p>
+<blockquote>
+<p>古有牛郎织女通过鹊桥相见，你侬我侬。今有 jsbridge 消除 Native 与 H5 隔阂，前端同学抢了 Native 同学的活:)</p>
+</blockquote>
+<p>Native 和 H5 的双向通讯机制是 hybrid 混合式开发核心之处。在 Native 中，不同的系统存在着统一的 webview 内嵌组件。</p>
+<h2 id="Webview"><a href="#Webview" class="headerlink" title="Webview"></a>Webview</h2><p>在 IOS 与 Android 中，Webview 内核是不同的。即便在相同的系统中，不同版本的系统，Webview 内核也有可能存在差异。</p>
+<p>例如在低版本 Android 中使用的是 WebKit 内核, 在 Android 高版本中则提供 Chromium 作为系统 WebView 的底层内核支持。</p>
+<p>IOS 最开始使用的为 UIwebView，但 UIwebview 无论是在新特性的支持度上或者页面渲染性能上都不尽如人意，因此后续 IOS 升级为 WKWebView 做为内核。因此随着 Native Webview 内核的升级，提供了更多的功能类，使得无论是用户体验还是功能来讲，都有了很大的提升。</p>
+<h2 id="Jsbridge-与-Native-的通讯原理"><a href="#Jsbridge-与-Native-的通讯原理" class="headerlink" title="Jsbridge 与 Native 的通讯原理"></a>Jsbridge 与 Native 的通讯原理</h2><h3 id="H5-通知-Native"><a href="#H5-通知-Native" class="headerlink" title="H5 通知 Native"></a>H5 通知 Native</h3><ol>
+<li>Api 注入：由于 Native 为 webview 的提供者，因此 Native 同样拥有着获取 JavaScript 环境上下文的超能力，可以通过 webview 提供的方法在 JavaScript 执行环境内挂载全局对象和方案。</li>
+<li>网络请求拦截: webview 提供了协议拦截 API，例如 IOS 上的 shouldStartLoadWithRequest 以及 Android 上的 shouldOverrideUrlLoading。当匹配到特定的拦截请求后，解析意图进行响应。</li>
+<li>特定 jsAPI 拦截： Native 通过拦截 WebView 中 JavaScript 执行的 prompt&#x2F;console&#x2F;alert 操作，解析意图进行响应，但改方式并不稳定。</li>
+</ol>
+<p>目前的主要手段是通过第二种方式：请求拦截实现的，我司也是通过该手段进行业务跨端交互。</p>
+<h3 id="Native-通知-H5"><a href="#Native-通知-H5" class="headerlink" title="Native 通知 H5"></a>Native 通知 H5</h3><p>正如上文所讲，Native 为 H5 提供了宿主容器：webView，并且 webView 也贴心的提供了 API 可以直接接入 JavaScript 运行时，执行 JavaScript 代码逻辑。<br>IOS:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift">webview.stringByEvaluatingJavaScriptFromString(<span class="hljs-string">&quot;JSBridge.trigger(&#x27;NativeCall&#x27;)&quot;</span>)<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>Android:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Java">webView.loadUrl(<span class="hljs-string">&quot;javascript:JSBridge.trigger(&#x27;NativeCall&#x27;)&quot;</span>)<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+<h2 id="探究-Jsbridge-的底层实现"><a href="#探究-Jsbridge-的底层实现" class="headerlink" title="探究 Jsbridge 的底层实现"></a>探究 Jsbridge 的底层实现</h2><p>在我司的混合式开发实践中，在页面加载阶段引入了 Jockey 做为 jsBridge 桥接桥梁，Jockey 的实现方式是通过请求特定 scheme 从而通知 Native 端，并在全局挂载事件，等待 Native 的触发，接下来我们将分析 Jockey 的源码，了解整个混合式开发底层原理。</p>
+<h2 id="Jockey"><a href="#Jockey" class="headerlink" title="Jockey"></a>Jockey</h2>
               
             </div>
             <hr/>
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/hybrid/">#hybrid</a>
+      
+        <a href="/tags/%E6%B7%B7%E5%90%88%E5%BC%8F%E5%BC%80%E5%8F%91/">#混合式开发</a>
+      
+    </div>
   
 </div>
 
@@ -297,8 +324,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hello World</div>
-      <div>http://example.com/2022/05/12/hello-world/</div>
+      <div>解密H5与Native的爱恨情仇</div>
+      <div>http://example.com/2022/03/12/揭秘H5与Native的爱恨情仇/</div>
     </div>
     <div class="license-meta">
       
@@ -310,7 +337,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年5月12日</div>
+          <div>2022年3月12日</div>
         </div>
       
       
@@ -343,6 +370,12 @@
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2022/02/12/%E6%89%8B%E6%92%B8Vue3%E4%B9%8B%20Reactive/" title="手撸 Vue3 - 响应式原理">
+                        <span class="hidden-mobile">手撸 Vue3 - 响应式原理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
