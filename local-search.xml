@@ -18,6 +18,8 @@
       
       <tag>混合式开发</tag>
       
+      <tag>JockeyJS</tag>
+      
     </tags>
     
   </entry>
@@ -36,6 +38,38 @@
     <tags>
       
       <tag>Vue3</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>从零撸一个 pearReact</title>
+    <link href="/2022/01/10/%E4%BB%8E%E9%9B%B6%E6%92%B8%E4%B8%80%E4%B8%AA-pearReact/"/>
+    <url>/2022/01/10/%E4%BB%8E%E9%9B%B6%E6%92%B8%E4%B8%80%E4%B8%AA-pearReact/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Promise/A+规范翻译</title>
+    <link href="/2021/11/05/Promise-A-%E8%A7%84%E8%8C%83%E7%BF%BB%E8%AF%91/"/>
+    <url>/2021/11/05/Promise-A-%E8%A7%84%E8%8C%83%E7%BF%BB%E8%AF%91/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Promise 是我们在日常开发中必不可少的 API。Promise 的出现，解决了臭名昭著的回调地狱异步编程模式。Promise 作为一个存储着异步调用函数的容器，通过使用 then、catch 等方法注册回调完成后执行的事件，极大程度上优化了异步开发体验。现如今的 Promise 规范中，主要是在 Promise&#x2F;A+规范之上，扩展了 all、race、allSettled 等方法，因此了解 Promise&#x2F;A+规范，有利于我们知悉 Promise 的底层执行过程。</p><h2 id="Promise-x2F-A-规范翻译"><a href="#Promise-x2F-A-规范翻译" class="headerlink" title="Promise&#x2F;A+ 规范翻译"></a>Promise&#x2F;A+ 规范翻译</h2><h3 id="1-状态"><a href="#1-状态" class="headerlink" title="1. 状态"></a>1. 状态</h3><p>Promise 必须是以下三种状态之一： Pending, Fulfilled, Rejected</p><ul><li>Promise 处于 Pending 状态下，可以转化为 Fulfilled 或者 Rejected</li><li>如果 Promise 已处于 Fulfilled 或者 Rejected 状态，则无法继续进行状态转移。此时 Fulfilled 对应的 value、 Rejected 对应的 reason 不可变化。</li></ul><h3 id="2-then-Promise-then-onFulfilled-onRejected"><a href="#2-then-Promise-then-onFulfilled-onRejected" class="headerlink" title="2. then Promise.then(onFulfilled, onRejected)"></a>2. then Promise.then(onFulfilled, onRejected)</h3><p>Promise 必须提供一个 then 方法作为执行或者订阅异步函数完成后执行的操作</p><ul><li>onFulfilled 与 onRejected 为可选参数。onFulfilled 与 onRejected 仅可被做为函数调用，如果未传入或者传入值类型非函数类型，则忽略。</li><li>onFulfilled 为函数，则 onFulfilled 必须在 Promise 状态转移至 Fulfilled 状态后被调用，且将接收到 value 作为函数唯一入参。</li><li>onRejected 为函数，则 onRejected 必须在 Promise 状态转移至 Rejected 状态后被调用，且将接受到 reason 作为参数唯一入参。</li><li>onFulfilled 与 onRejected 仅能被调用一次。</li><li>then 方法可以被一个 Promise 多次调用，当 Promise 状态发生变更后，所有的 onFulfilled 和 onRejected 必须按照注册顺序依次执行</li><li>then 方法必须返回一个新的 Promise，以支持链式调用。<ul><li>i: onFulfilled 或者 onRejected 返回一个值 x ，则运行 Promise 解决过程：[[Resolve]](promise2, x)</li><li>ii: 如果 onFulfilled 或者 onRejected 抛出一个异常 e ，则 promise2 必须拒绝执行，并返回拒因 e;</li><li>iii: 如果 onFulfilled 不是函数且 promise1 成功执行， promise2 必须成功执行并返回相同的 value;</li><li>iv: 如果 onRejected 不是函数且 promise1 拒绝执行， promise2 必须拒绝执行并返回相同的 reason;</li></ul></li></ul><h3 id="Promise-的执行过程"><a href="#Promise-的执行过程" class="headerlink" title="Promise 的执行过程"></a>Promise 的执行过程</h3><p>Promise 解决过程是一个抽象的操作，其需输入一个 promise 和一个值，我们表示为 [[Resolve]](promise, x)，如果 x 有 then 方法且看上去像一个 Promise ，解决程序即尝试使 promise 接受 x 的状态；否则其用 x 的值来执行 promise</p><ul><li>如果 promise 与 x 为同一个值，则以 TypeError 异常作为 reason 拒绝 promise。</li><li>如果 x 为 Promise 态，即 x instanceof Promise，则使 promise 接收 x 的状态<ul><li>如果 x 处于 Pedding 态， promise 需保持为等待态直至 x 被执行或拒绝</li><li>如果 x 处于 Fulfilled 状态，用相同的 value 执行 promise</li><li>如果 x 处于 Reject 状态，用相同的 reason 拒绝 promise</li></ul></li><li>如果 x 为对象或者函数<ul><li>把 x.then 赋值给 then</li><li>如果取 x.then 的值时抛出错误 e ，则以 e 为 reason 拒绝 promise</li><li>如果 then 是函数，将 x 作为函数的作用域 this 调用之。传递两个回调函数作为参数，第一个参数叫做 resolvePromise ，第二个参数叫做 rejectPromise</li><li>如果 resolvePromise 以 y 为参数被调用，则运行 [[Resolve]](promise, y)</li><li>如果 rejectPromise 以 r 为参数被调用，则以 reason r 拒绝 promise</li><li>如果 resolvePromise 和 rejectPromise 均被调用，或者被同一参数调用了多次，则优先采用首次调用并忽略剩下的调用</li><li>如果调用 then 方法抛出了异常 e: 如果 resolvePromise 或 rejectPromise 已经被调用，则忽略之;否则以 e 为 reason 拒绝 promise;</li><li>如果 then 不是函数，以 x 为参数执行 promise</li></ul></li><li>如果 x 不为对象或者函数，则以 x 为参数执行 Promise;</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Promise</tag>
       
     </tags>
     
