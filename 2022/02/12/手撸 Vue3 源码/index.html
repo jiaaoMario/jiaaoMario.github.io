@@ -16,21 +16,21 @@
   <meta name="author" content="Mario.ma">
   <meta name="keywords" content="">
   
-    <meta name="description" content="开始距离 Vue3 正式版本发布已经过去一段时间了，在">
+    <meta name="description" content="开始Vue3 正式版本发布已经一段时间了，我司也已经全面拥抱 Vue3，笔者使用 v3 版本参与推动了部门重要项目的重构升级工作。composition api 等新增特性在开发过程中带来了前所未有的崭新体验。因此，这促使笔者想要对 Vue3 底层原理进行一次深度剖析。希望可以通过该系列文章和读者深入 Vue3 底层实现，提高开发水平。 知识储备就笔者个人经验来讲，学习源码的过程往往是枯燥且乏味的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="手撸 Vue3 - 响应式原理">
-<meta property="og:url" content="http://jiaaomario.github.io/2022/02/12/%E6%89%8B%E6%92%B8Vue3%E4%B9%8B%20Reactive/index.html">
+<meta property="og:title" content="手撸 Vue3 源码 - 开篇">
+<meta property="og:url" content="http://jiaaomario.github.io/2022/02/12/%E6%89%8B%E6%92%B8%20Vue3%20%E6%BA%90%E7%A0%81/index.html">
 <meta property="og:site_name" content="Mario.ma 的个人博客">
-<meta property="og:description" content="开始距离 Vue3 正式版本发布已经过去一段时间了，在">
+<meta property="og:description" content="开始Vue3 正式版本发布已经一段时间了，我司也已经全面拥抱 Vue3，笔者使用 v3 版本参与推动了部门重要项目的重构升级工作。composition api 等新增特性在开发过程中带来了前所未有的崭新体验。因此，这促使笔者想要对 Vue3 底层原理进行一次深度剖析。希望可以通过该系列文章和读者深入 Vue3 底层实现，提高开发水平。 知识储备就笔者个人经验来讲，学习源码的过程往往是枯燥且乏味的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-12T14:41:12.000Z">
-<meta property="article:modified_time" content="2022-05-12T14:45:37.774Z">
+<meta property="article:modified_time" content="2022-05-29T09:45:06.272Z">
 <meta property="article:author" content="Mario.ma">
 <meta property="article:tag" content="Vue3">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>手撸 Vue3 - 响应式原理 - Mario.ma 的个人博客</title>
+  <title>手撸 Vue3 源码 - 开篇 - Mario.ma 的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -193,7 +193,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="手撸 Vue3 - 响应式原理"></span>
+            <span id="subtitle" data-typed-text="手撸 Vue3 源码 - 开篇"></span>
           
         </div>
 
@@ -216,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          25 字
+          415 字
         
       </span>
     
@@ -227,7 +227,7 @@
         
         
         
-          1 分钟
+          4 分钟
         
       </span>
     
@@ -265,11 +265,18 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">手撸 Vue3 - 响应式原理</h1>
+            <h1 style="display: none">手撸 Vue3 源码 - 开篇</h1>
             
             <div class="markdown-body">
               
-              <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>距离 Vue3 正式版本发布已经过去一段时间了，在</p>
+              <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>Vue3 正式版本发布已经一段时间了，我司也已经全面拥抱 Vue3，笔者使用 v3 版本参与推动了部门重要项目的重构升级工作。composition api 等新增特性在开发过程中带来了前所未有的崭新体验。因此，这促使笔者想要对 Vue3 底层原理进行一次深度剖析。希望可以通过该系列文章和读者深入 Vue3 底层实现，提高开发水平。</p>
+<h2 id="知识储备"><a href="#知识储备" class="headerlink" title="知识储备"></a>知识储备</h2><p>就笔者个人经验来讲，学习源码的过程往往是枯燥且乏味的。因此强烈建议您在阅读本系列前有一定的知识储备。例如完整阅读过 Vue2、Vue3 版本官方文档，有 Vue3 完整项目开发经验更佳，这样可以对 Vue 有着清晰的认识。如暂时不具备上述的知识储备，建议可以做些许沉淀，如阅读<a target="_blank" rel="noopener" href="https://v3.cn.vuejs.org/">Vue3 相关开发文档</a>等。</p>
+<h2 id="章节序列"><a href="#章节序列" class="headerlink" title="章节序列"></a>章节序列</h2><p>Vue3 在开发期间，将不同的功能模块抽离为单独个体的包，在解耦的同时也便于 tree-shaking 的体积优化。因此，本系列也会根据模块进行深入研究。</p>
+<ol>
+<li>深入 Vue3 响应式系统</li>
+<li>深入 Vue3 编译器</li>
+<li>深入 Vue3 同构渲染</li>
+</ol>
 
               
             </div>
@@ -293,8 +300,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>手撸 Vue3 - 响应式原理</div>
-      <div>http://jiaaomario.github.io/2022/02/12/手撸Vue3之 Reactive/</div>
+      <div>手撸 Vue3 源码 - 开篇</div>
+      <div>http://jiaaomario.github.io/2022/02/12/手撸 Vue3 源码/</div>
     </div>
     <div class="license-meta">
       
