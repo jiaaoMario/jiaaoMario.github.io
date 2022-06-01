@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>深入Vue3 源码-响应式系统</title>
+    <link href="/2022/05/29/%E6%B7%B1%E5%85%A5Vue3-%E6%BA%90%E7%A0%81-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
+    <url>/2022/05/29/%E6%B7%B1%E5%85%A5Vue3-%E6%BA%90%E7%A0%81-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>大话H5与Native</title>
     <link href="/2022/03/12/%E6%8F%AD%E7%A7%98H5%E4%B8%8ENative%E7%9A%84%E7%88%B1%E6%81%A8%E6%83%85%E4%BB%87/"/>
     <url>/2022/03/12/%E6%8F%AD%E7%A7%98H5%E4%B8%8ENative%E7%9A%84%E7%88%B1%E6%81%A8%E6%83%85%E4%BB%87/</url>
@@ -27,11 +40,11 @@
   
   
   <entry>
-    <title>手撸 Vue3 源码 - 开篇</title>
-    <link href="/2022/02/12/%E6%89%8B%E6%92%B8%20Vue3%20%E6%BA%90%E7%A0%81/"/>
-    <url>/2022/02/12/%E6%89%8B%E6%92%B8%20Vue3%20%E6%BA%90%E7%A0%81/</url>
+    <title>深入Vue3 源码 - 开篇</title>
+    <link href="/2022/02/12/%E6%B7%B1%E5%85%A5Vue3%20%E6%BA%90%E7%A0%81%20-%20%E5%BC%80%E7%AF%87/"/>
+    <url>/2022/02/12/%E6%B7%B1%E5%85%A5Vue3%20%E6%BA%90%E7%A0%81%20-%20%E5%BC%80%E7%AF%87/</url>
     
-    <content type="html"><![CDATA[<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>Vue3 正式版本发布已经一段时间了，我司也已经全面拥抱 Vue3，笔者使用 v3 版本参与推动了部门重要项目的重构升级工作。composition api 等新增特性在开发过程中带来了前所未有的崭新体验。因此，这促使笔者想要对 Vue3 底层原理进行一次深度剖析。希望可以通过该系列文章和读者深入 Vue3 底层实现，提高开发水平。</p><h2 id="知识储备"><a href="#知识储备" class="headerlink" title="知识储备"></a>知识储备</h2><p>就笔者个人经验来讲，学习源码的过程往往是枯燥且乏味的。因此强烈建议您在阅读本系列前有一定的知识储备。例如完整阅读过 Vue2、Vue3 版本官方文档，有 Vue3 完整项目开发经验更佳，这样可以对 Vue 有着清晰的认识。如暂时不具备上述的知识储备，建议可以做些许沉淀，如阅读<a href="https://v3.cn.vuejs.org/">Vue3 相关开发文档</a>等。</p><h2 id="章节序列"><a href="#章节序列" class="headerlink" title="章节序列"></a>章节序列</h2><p>Vue3 在开发期间，将不同的功能模块抽离为单独个体的包，在解耦的同时也便于 tree-shaking 的体积优化。因此，本系列也会根据模块进行深入研究。</p><ol><li>深入 Vue3 响应式系统</li><li>深入 Vue3 编译器</li><li>深入 Vue3 同构渲染</li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>Vue3 正式版本发布已经一段时间了，我司也已经全面拥抱 Vue3，笔者使用 v3 版本参与推动了部门重要项目的重构升级工作。composition api 等新增特性在开发过程中带来了前所未有的崭新体验。因此，这促使笔者想要对 Vue3 底层原理进行一次深度剖析。希望可以通过该系列文章和读者深入 Vue3 底层实现，提高开发水平。</p><h2 id="知识储备"><a href="#知识储备" class="headerlink" title="知识储备"></a>知识储备</h2><p>就笔者个人经验来讲，学习源码的过程往往是枯燥且乏味的。因此强烈建议您在阅读本系列前有一定的知识储备。例如完整阅读过 Vue2、Vue3 版本官方文档，有 Vue3 完整项目开发经验更佳，这样可以对 Vue 有着清晰的认识。如暂时不具备上述的知识储备，建议可以做些许沉淀，如阅读<a href="https://v3.cn.vuejs.org/">Vue3 相关开发文档</a>等。</p><h2 id="章节序列"><a href="#章节序列" class="headerlink" title="章节序列"></a>章节序列</h2><p>Vue3 在开发期间，将不同的功能模块抽离为单独个体的包，在解耦的同时也便于 tree-shaking 的体积优化。因此，本系列也会根据模块进行深入研究。</p><ol><li>Vue3 源码目录结构</li><li>深入 Vue3 响应式系统</li><li>深入 Vue3 编译器</li><li>深入 Vue3 同构渲染</li></ol><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>本系列全部源码均可在<a href="https://github.com/jiaaoMario/vue3-SC">jiaaoMario&#x2F;vue3-SC</a>仓库中找到，如在共同学习中遇到问题或见解，可在 Issues 中反馈，我们一起进步:)</p>]]></content>
     
     
     
