@@ -16,12 +16,12 @@
   <meta name="author" content="Mario.ma">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言Redux 是最为流行的 JavaScript 状态管理容器之一，其具有单一数据源、状态树只读、通过 Reducers 纯函数变更等特性使得运行时状态具有可预测的特性。本篇文章我们将深入 Redux 源码，通过学习其内部实现，从而加深我们对 Redux 的理解，便于未来工作中的更好使用。在阅读本文章前，建议读者对 Redux 有一定的使用经验，如对 Redux 较为陌生，可移步redux 官方">
+    <meta name="description" content="前言Redux 是最为流行的 JavaScript 状态管理容器之一，其具有单一数据源、状态树数据只读、通过 Reducers 纯函数变更等特性使得运行时状态具有可预测的特性。本篇文章我们将深入 Redux 源码，通过学习其内部实现，从而加深我们对 Redux 的理解，便于未来工作中的更好使用。在阅读本文章前，建议读者对 Redux 有一定的使用经验，如对 Redux 较为陌生，可移步redux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redux源码解析">
 <meta property="og:url" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/index.html">
 <meta property="og:site_name" content="Mario.ma 的个人博客">
-<meta property="og:description" content="前言Redux 是最为流行的 JavaScript 状态管理容器之一，其具有单一数据源、状态树只读、通过 Reducers 纯函数变更等特性使得运行时状态具有可预测的特性。本篇文章我们将深入 Redux 源码，通过学习其内部实现，从而加深我们对 Redux 的理解，便于未来工作中的更好使用。在阅读本文章前，建议读者对 Redux 有一定的使用经验，如对 Redux 较为陌生，可移步redux 官方">
+<meta property="og:description" content="前言Redux 是最为流行的 JavaScript 状态管理容器之一，其具有单一数据源、状态树数据只读、通过 Reducers 纯函数变更等特性使得运行时状态具有可预测的特性。本篇文章我们将深入 Redux 源码，通过学习其内部实现，从而加深我们对 Redux 的理解，便于未来工作中的更好使用。在阅读本文章前，建议读者对 Redux 有一定的使用经验，如对 Redux 较为陌生，可移步redux">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/pkg.png">
 <meta property="og:image" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/isCrushed.png">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/bindActionCreator.png">
 <meta property="og:image" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/bindActionCreators.png">
 <meta property="article:published_time" content="2022-05-20T15:52:42.000Z">
-<meta property="article:modified_time" content="2022-07-02T19:14:53.994Z">
+<meta property="article:modified_time" content="2022-07-02T19:29:04.710Z">
 <meta property="article:author" content="Mario.ma">
 <meta property="article:tag" content="源码解析">
 <meta property="article:tag" content="Redux">
@@ -282,7 +282,7 @@
             
             <div class="markdown-body">
               
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Redux 是最为流行的 JavaScript 状态管理容器之一，其具有单一数据源、状态树只读、通过 Reducers 纯函数变更等特性使得运行时状态具有可预测的特性。本篇文章我们将深入 Redux 源码，通过学习其内部实现，从而加深我们对 Redux 的理解，便于未来工作中的更好使用。在阅读本文章前，建议读者对 Redux 有一定的使用经验，如对 Redux 较为陌生，可移步<a target="_blank" rel="noopener" href="https://redux.js.org/">redux 官方文档</a>。</p>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Redux 是最为流行的 JavaScript 状态管理容器之一，其具有单一数据源、状态树数据只读、通过 Reducers 纯函数变更等特性使得运行时状态具有可预测的特性。本篇文章我们将深入 Redux 源码，通过学习其内部实现，从而加深我们对 Redux 的理解，便于未来工作中的更好使用。在阅读本文章前，建议读者对 Redux 有一定的使用经验，如对 Redux 较为陌生，可移步<a target="_blank" rel="noopener" href="https://redux.js.org/">redux 官方文档</a>。</p>
 <h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h2><p>首先，将 Redux 源码拉取至本地，本项目接下来的所有源码分析都会以 Redux 项目为基础。</p>
 <h2 id="2-开始"><a href="#2-开始" class="headerlink" title="2. 开始"></a>2. 开始</h2><p>整体来讲，Redux 源码目录架构是最流行的 JavaScript 包架构。当我们拿到这样一个目录架构后，不需要上来便看代码，可以通过 package.json 对项目不同构建模式声明确认入口。</p>
 <p><img src="/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/pkg.png" srcset="/img/loading.gif" lazyload alt="package.json"><br>接下来我们将从 <code>/src/index.ts</code>作为入口进行学习。</p>
