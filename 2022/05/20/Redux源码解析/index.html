@@ -32,8 +32,10 @@
 <meta property="og:image" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/compose.png">
 <meta property="og:image" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/bindActionCreator.png">
 <meta property="og:image" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/bindActionCreators.png">
+<meta property="og:image" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/middlewares.png">
+<meta property="og:image" content="http://jiaaomario.github.io/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/enhancer.png">
 <meta property="article:published_time" content="2022-05-20T15:52:42.000Z">
-<meta property="article:modified_time" content="2022-07-02T19:29:04.710Z">
+<meta property="article:modified_time" content="2022-07-03T09:28:45.517Z">
 <meta property="article:author" content="Mario.ma">
 <meta property="article:tag" content="源码解析">
 <meta property="article:tag" content="Redux">
@@ -229,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.8k 字
+          5.2k 字
         
       </span>
     
@@ -240,7 +242,7 @@
         
         
         
-          40 分钟
+          44 分钟
         
       </span>
     
@@ -321,7 +323,8 @@
 <h3 id="3-4-bindActionCreators"><a href="#3-4-bindActionCreators" class="headerlink" title="3-4 bindActionCreators"></a>3-4 bindActionCreators</h3><p>把一个 value 为不同 action creator 的对象，转成拥有同名 key 的对象。同时使用 dispatch 对每个 action creator 进行包装，以便可以直接调用它们。bindActionCreators 常用于不想给予 dispatch 能力但希望对 Redux State 进行变更的场景。首先，Redux 针对单独的 Creator 封装了操作函数：</p>
 <p><img src="/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/bindActionCreator.png" srcset="/img/loading.gif" lazyload alt="bindActionCreator"><br>bindActionCreator 接收一个 action 生产者，以及 dispatch。在函数体内部返回一个新的函数，函数接收参数可以用于 action 额外的 payload 值，返回值是 dispatch 创建好的 action。由此可见 bindActionCreator 目的明确，并且实现简单。而 bindActionCreators 其实也是通过调用 bindActionCreator 实现的。<br>bindActionCreators 同样使用重载，兼容多种传参实现。当传入值为函数时，视为传入了一个 action 创造者，则符合 bindActionCreator 入参，直接交付 bindActionCreator 函数处理即可。</p>
 <p>倘若 actionCreators 为 Map 类型，则视为传入了一组 action Creator，此时，bindActionCreators 会通过<code>for in</code> 进行遍历，如果每一个 action Creator 为函数，则依次将 value 与 dispatch 作为参数传入 bindActionCreator 中，并将返回值保存传入时的结构整体返回:<br><img src="/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/bindActionCreators.png" srcset="/img/loading.gif" lazyload alt="bindActionCreators"></p>
-<h3 id="3-5-applyMiddleware"><a href="#3-5-applyMiddleware" class="headerlink" title="3-5 applyMiddleware"></a>3-5 applyMiddleware</h3><p>在 Redux 中，Middleware 类似 Koa 框架中的中间件洋葱模型，自定义功能的 middleware 可以在无侵入性的模式下扩展 Redux。支持多个 Middleware 链式组合。例如后续可能会进行源码学习的 redux-thunk，都是采用 applyMiddleware 进行扩展的。</p>
+<h3 id="3-5-applyMiddleware"><a href="#3-5-applyMiddleware" class="headerlink" title="3-5 applyMiddleware"></a>3-5 applyMiddleware</h3><p>在 Redux 中，Middleware 类似 Koa 中的中间件洋葱模型，自定义功能的 middleware 可以在无侵入性的模式下扩展 Redux，并支持多个 Middleware 链式组合。类似于异步 Dispatch 的扩展 redux-thunk，都是采用 applyMiddleware 进行扩展的。applyMiddleware 支持接收一个或多个中间件插件：<br><img src="/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/middlewares.png" srcset="/img/loading.gif" lazyload alt="middlewares"><br>让我们回忆一下，Reudx 源码在 createStore 中，如果传入 enhancer，则会向 enhancer 中传入 createStore，并向 enhancer 返回的函数中传入 reducer、preloadedState，<br><img src="/2022/05/20/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/enhancer.png" srcset="/img/loading.gif" lazyload alt="createStore中对enhancer的处理逻辑"><br>applyMiddleware 会根据上述这些参数，创建 Store，构造 拥有 getState、dispatch 能力的 middlewareAPI。经过上述的准备工作后，便可以进行 applyMiddleware 核心逻辑，<br>通过对 middlewares 进行遍历，其注入 middlewareAPI 并执行，获取 chains，并通过 compose Api 依次执行 chain 获取最终加密后的值，完成对 Redux Dispath 的扩展。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4 总结"></a>4 总结</h2><p>到此为止，本篇文章介绍了 Redux 的主要 Api 实现逻辑和原理。贯穿整篇文章，我们深刻的意识到，Redux 的核心思想无非是，通过 Reducer，Action 贯穿单数据流向，并通过 MiddleWares 进行非侵入性的扩展。希望看完本篇文章，可以使您对 Redux 有更深入的了解。</p>
 
               
             </div>
