@@ -4,6 +4,61 @@
   
   
   <entry>
+    <title>人类高质量npm包赏析之react-error-boundary</title>
+    <link href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/"/>
+    <url>/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>react-error-boundary，就 package 的名字而言便可以猜出，这是一个针对 React UI 级别的的异常处理模块。对于使用命令式编写的代码来说，我们经常会使用 try.catch 进行异常处理和降级:</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">try</span> &#123;<br>  <span class="hljs-comment">// do some wrong thing</span><br>&#125; <span class="hljs-keyword">catch</span> (err) &#123;<br>  <span class="hljs-comment">// 进行异常</span><br>&#125;<br></code></pre></td></tr></table></figure><p>而在 UI 框架的 UI 视图层中，则需要框架底层进行运行时的支持。</p><h2 id="React-的错误边界"><a href="#React-的错误边界" class="headerlink" title="React 的错误边界"></a>React 的错误边界</h2><p>在 React v16 之前，任何组件暴露出的异常，会导致整个应用的崩溃。对于系统来说，错误是无法避免的，因此很显然，一处出错导致系统崩溃是不合理的。因此在 React v16 推出了错误边界[Error Boundaries]这一概念。援引 <a href="https://react.docschina.org/docs/error-boundaries.html">React 官方文档</a> 对于错误边界的定义：</p><blockquote><p>错误边界是一种 React 组件，这种组件可以捕获并打印发生在其子组件树任何位置的 JavaScript 错误，并且，它会渲染出备用 UI，而不是渲染那些崩溃了的子组件树。错误边界在渲染期间、生命周期方法和整个组件树的构造函数中捕获错误。</p></blockquote><p>由此可见，我们可以借助 <code>getDerivedStateFromError</code> 以 <code>componentDidCatch</code>,包装一个 Error Boundaries 组件，从而收集其子组件的异常，并做出降级操作。</p><h2 id="初识-react-error-boundary"><a href="#初识-react-error-boundary" class="headerlink" title="初识 react-error-boundary"></a>初识 react-error-boundary</h2><p>在现在的大型项目中，组件的动态加载已是最常用的体积优化方案之一，React 也是贴心的开放了 React.lazy 方法支持开发者引入异步加载组件。然而 Production Env 的干扰因子总是千奇百怪，如果遇到了网络问题或者模块加载问题导致异步加载的组件资源拉取失败。对于用户来说，操作流程被阻断却无异常反馈，体验感会非常糟糕。而对于开发人员来说，排查起来也是不小的心智负担。<br>这时候便可以使用 ErrorBoundaries 组件进行错误的捕获，可以自己实现，也可以直接使用本篇文章要介绍到的主角: React-error-boundary。React-error-boundary 为我们提供了一个完整的错误边界处理方案。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>react</tag>
+      
+      <tag>人类高质量npm包赏析</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>人类高质量npm包赏析</title>
+    <link href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/"/>
+    <url>/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。<br><img src="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/cai.jpeg" alt="菜鸡"><br>这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。</p><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul><li><a href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary">人类高质量 npm 包赏析之 react-error-boundary</a></li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>源码解析</tag>
+      
+      <tag>人类高质量npm包赏析</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>我们为什么需要immutable</title>
+    <link href="/2022/07/09/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81immutable/"/>
+    <url>/2022/07/09/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81immutable/</url>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Redux源码解析</title>
     <link href="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
     <url>/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
@@ -14,13 +69,13 @@
     
     <tags>
       
-      <tag>源码解析</tag>
-      
       <tag>Redux</tag>
       
-      <tag>状态管理</tag>
-      
       <tag>React</tag>
+      
+      <tag>源码解析</tag>
+      
+      <tag>状态管理</tag>
       
     </tags>
     
@@ -62,9 +117,9 @@
     
     <tags>
       
-      <tag>Vue3</tag>
-      
       <tag>源码解析</tag>
+      
+      <tag>Vue3</tag>
       
     </tags>
     
@@ -102,9 +157,9 @@
     
     <tags>
       
-      <tag>Vue3</tag>
-      
       <tag>源码解析</tag>
+      
+      <tag>Vue3</tag>
       
     </tags>
     
