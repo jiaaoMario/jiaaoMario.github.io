@@ -23,12 +23,16 @@
 <meta property="og:site_name" content="Mario.ma 的个人博客">
 <meta property="og:description" content="前言react-error-boundary，就 package 的名字而言便可以猜出，这是一个针对 React UI 级别的的异常处理模块。对于使用命令式编写的代码来说，我们经常会使用 try.catch 进行异常处理和降级: 12345try &amp;#123;  &#x2F;&#x2F; do some wrong thing&amp;#125; catch (err) &amp;#123;  &#x2F;&#x2F; 进行异常&amp;#125;  而在 U">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://jiaaomario.github.io/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/ErrorBoundaryProps.png">
+<meta property="og:image" content="http://jiaaomario.github.io/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/PubicProps.png">
+<meta property="og:image" content="http://jiaaomario.github.io/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/DifferentProps.png">
 <meta property="article:published_time" content="2022-07-15T17:08:21.000Z">
-<meta property="article:modified_time" content="2022-07-15T18:20:15.946Z">
+<meta property="article:modified_time" content="2022-07-17T14:59:06.064Z">
 <meta property="article:author" content="Mario.ma">
 <meta property="article:tag" content="react">
 <meta property="article:tag" content="人类高质量npm包赏析">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://jiaaomario.github.io/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/ErrorBoundaryProps.png">
   
   
   <title>人类高质量npm包赏析之react-error-boundary - Mario.ma 的个人博客</title>
@@ -217,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          883 字
+          2.7k 字
         
       </span>
     
@@ -228,7 +232,7 @@
         
         
         
-          8 分钟
+          23 分钟
         
       </span>
     
@@ -280,6 +284,19 @@
 </blockquote>
 <p>由此可见，我们可以借助 <code>getDerivedStateFromError</code> 以 <code>componentDidCatch</code>,包装一个 Error Boundaries 组件，从而收集其子组件的异常，并做出降级操作。</p>
 <h2 id="初识-react-error-boundary"><a href="#初识-react-error-boundary" class="headerlink" title="初识 react-error-boundary"></a>初识 react-error-boundary</h2><p>在现在的大型项目中，组件的动态加载已是最常用的体积优化方案之一，React 也是贴心的开放了 React.lazy 方法支持开发者引入异步加载组件。然而 Production Env 的干扰因子总是千奇百怪，如果遇到了网络问题或者模块加载问题导致异步加载的组件资源拉取失败。对于用户来说，操作流程被阻断却无异常反馈，体验感会非常糟糕。而对于开发人员来说，排查起来也是不小的心智负担。<br>这时候便可以使用 ErrorBoundaries 组件进行错误的捕获，可以自己实现，也可以直接使用本篇文章要介绍到的主角: React-error-boundary。React-error-boundary 为我们提供了一个完整的错误边界处理方案。</p>
+<h2 id="源码赏析"><a href="#源码赏析" class="headerlink" title="源码赏析"></a>源码赏析</h2><p>react-error-boundary (本文后续简称为 REB)定位是一个 UI 框架层面的错误边界处理方案，因此代码整体上也是较为简单易懂。REB 核心代码位于<code>src/index.tsx</code>文件中，使用 TypeScript 进行编写，在开始阅读源码前，我们可以首先通过定义的接口类型大致推测出使用方式和内部结构:</p>
+<p>type ErrorBoundaryProps 汇总了三种 REB 调用方式，分别是 Fallback 调用，Component 高阶函数调用以及插入渲染函数方式调用。<br><img src="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/ErrorBoundaryProps.png" srcset="/img/loading.gif" lazyload alt="ErrorBoundaryProps"><br>其中，这三类调用方式具有相同的公共 Props：<br><img src="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/PubicProps.png" srcset="/img/loading.gif" lazyload alt="PubicProps"><br>其中，很好理解的是 onError，当内部函数发生异常错误时，REB 会触发该事件。而另外三个参数，则是围绕着 REB 的错误重试机制配置的，通过配置 resetKey 达到对错误组件的加载重试。</p>
+<p>说完了三种模式的共同点，接下来让我们看下这三种模式从类型声明上看，会有什么不同。<br><img src="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/DifferentProps.png" srcset="/img/loading.gif" lazyload alt="DifferentProps"><br>当我们将三种方式不同类型抽离出进行对比，可以很明显的看出，其实仅仅是对接收不同 fallback 的处理方式进行的多态处理罢了。在了解了 REB 的接口后，我们已经对 REB 的预计实现有了大致的推测，接下来就让我们带着心里的推测以及疑问，正式开始对 REB 的实现进行研究。</p>
+<h3 id="REM-内部实现"><a href="#REM-内部实现" class="headerlink" title="REM 内部实现"></a>REM 内部实现</h3><p>REM 对外暴露出了<code>ErrorBoundary</code>, <code>withErrorBoundary</code>, <code>useErrorHandler</code>,三个方案。</p>
+<h4 id="ErrorBoundary"><a href="#ErrorBoundary" class="headerlink" title="ErrorBoundary"></a>ErrorBoundary</h4><p>ErrorBoundary 是一个 class component 组件。从 Props 的定义来看在接收我们在上面提到的 ErrorBoundaryProps，此外还使用 PropsWithChildren 声明接收 children，因此 ErrorBoundary 是一个高阶组件。组件内部维护着 state 用于存储当前收集到的 Error，并使用了在第一节中介绍到的 React 错误边界处理钩子：<code>getDerivedStateFromError</code>及<code>getDerivedStateFromError</code>。通过 static getDerivedStateFromError 监控子组件的异常问题，如有异常抛出，则返回获取到的异常值存入 state 中。而 getDerivedStateFromError 则在子组件异常抛出时，触发 props 中 onError 方法，用于对外同步状态。到此为止，ErrorBoundary 组件已经实现了最基础的异常检测，但仅仅是这样是不够的，REB 还提供了重试的逻辑。让我们把注意力放到 ErrorBoundary 的 render 函数中，在上文中，我们提到了 ErrorBoundary 内部维护着变量用于存储嵌套组件抛出的异常，而在 render 函数中，便通过这个变量对嵌套组件进行问题降级：变量为空时，正常渲染 props.children，也就是嵌套的子组件，如果变量存储了异常结果，则进行异常的 UI 展示，在先前对接口定义进行分析时，我们已经初步了解到 ErrorBoundary 接收三种模式的 fallback，而实现上印证了我们的猜想，ErrorBoundary 通过对参数的判断，进行节点、渲染函数、组件不同级别策略的渲染，并向其注入 error reason 以及一个<code>resetErrorBoundary</code>方法。resetErrorBoundary 内部在调用 props 传入的 onReset 的 callback 同时，通过初始化 state 的方式，使得子组件重新渲染。</p>
+<h4 id="withErrorBoundary"><a href="#withErrorBoundary" class="headerlink" title="withErrorBoundary"></a>withErrorBoundary</h4><p>REB 同样提供了函数式组件的调用模式，原理很简单，withErrorBoundary 接收待包裹组件以及 ErrorBoundary 需要的 Props 配置项，在内部间接调用 ErrorBoundary 组件即可。</p>
+<h4 id="useErrorHandler"><a href="#useErrorHandler" class="headerlink" title="useErrorHandler"></a>useErrorHandler</h4><p>useErrorHandler 是 REB 配套的一个自定义 hooks，内部实现较为简单。</p>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><ol>
+<li><p>REB 是基于 React v16+ 中的错误边界实现的，因此在阅读该源码后，我们可以对错误边界有了更深入的了解，相信看到这里，你也可以轻而易举的实现一个自己的错误边界处理库了。</p>
+</li>
+<li><p>REB 是使用 TypeScript 进行开发的库。很多开发者在阅读源码时候，直接直奔源码实现，往往看了半天不知道在看什么，慢慢的也失去了学习的信心和动力。这时候我们先去看核心的类型声明。经验告诉我们，对外暴露出的类型声明往往都是核心的，将它们了解透彻，我们便可以知道源码实现中的条件和目的，这样我们带着推测和问题去阅读源码就清晰简单多了。</p>
+</li>
+</ol>
 
               
             </div>
