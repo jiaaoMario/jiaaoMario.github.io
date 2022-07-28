@@ -4,6 +4,59 @@
   
   
   <entry>
+    <title>古早前端程序员是如何构建项目的</title>
+    <link href="/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/"/>
+    <url>/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/</url>
+    
+    <content type="html"><![CDATA[<p>回想一下自己的代码生涯，大一开始接触前端，每天跟着 HTML、CSS、JavaScript 死磕。那时候，以为一个个<code>&lt;script&gt;&lt;/script&gt;</code>就是全世界。然而在接触到前端三大件、各类模块构建工具后，仿佛发现了新大陆，原来前端也可以玩的如此花样百出，回头就将那一个个 script 打入了冷宫。转眼间，步入社会已经数载，一切都还顺利，从事着前端开发的工作，也算大学时的付出没有白费。近日闲来无事，在 github 上逛逛仓库，发现了已经停止维护的 IScroll，看着作者将近十年前的 commit 和古典的代码风格，仿佛一下子回到了自己的大学时代。感叹代码可以改变我们的生活，也可以记录我们的青春的同时，也勾起了我对于其源码和构建方式的兴趣，故写此文章，本文主要讨论的是在没有 Webpack 的时代，前端程序员们是如何编写一个庞大的包的。希望本篇文章，可以带你找回那个少年的你。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>人类高质量npm包赏析</tag>
+      
+      <tag>IScroll</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>虚拟滚动实现原理</title>
+    <link href="/2022/07/22/%E8%99%9A%E6%8B%9F%E6%BB%9A%E5%8A%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"/>
+    <url>/2022/07/22/%E8%99%9A%E6%8B%9F%E6%BB%9A%E5%8A%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h2 id="1-开篇"><a href="#1-开篇" class="headerlink" title="1. 开篇"></a>1. 开篇</h2><p>随着前端业务的日益复杂，性能优化已经成为了每一个前端工程师的必备技能。而其中无论是 toC 还是 toB 端，凡是涉及到庞大的数量级列表加载场景，为了提高页面性能，除了使用分页以外，往往都会使用虚拟滚动技术进行性能优化。<br>目前社区有很多成熟的解决方案，例如<a href="https://github.com/cubiq/iscroll">iScroll</a>、基于 iScroll 思想进行开发的<a href="https://better-scroll.github.io/docs/zh-CN/">Better-Scroll</a>、以及针对树形控件<a href="https://github.com/react-component/tree">rc-tree</a> 这些第三方插件可以使我们在完全黑盒的场景下实现虚拟滚动效果。然而仅仅是了解轮子的使用是完全不够的，只有知其所以然，才能提高自身实力和竞争力。本篇文章将从虚拟滚动底层原理出发，最后实现一个简易版本的虚拟滚动示例，从而真正了解虚拟滚动。</p><h2 id="2-虚拟滚动的基本实现原理"><a href="#2-虚拟滚动的基本实现原理" class="headerlink" title="2. 虚拟滚动的基本实现原理"></a>2. 虚拟滚动的基本实现原理</h2><p>虚拟滚动本质上是一种按需加载技术，让我们回顾一下虚拟滚动的引入场景: 我们期望在<em>大规模数据</em>需要被<em>一次性</em>拉取展示的背景下对页面加载性能进行优化。由此可见，虚拟滚动要解决的是:</p><ul><li>单线程的 JavaScript 在处理密集型渲染操作时引发的掉帧卡顿问题，而大多数的元素渲染是无必要的，因为用户只关注当前可视区域内渲染的元素。</li><li>在页面滚动过程中，大量元素重新渲染导致的性能问题。</li></ul><p>从这两个痛点出发，如下图所示，我们可以尝试只渲染在当前页面下可视范围内的元素，当用户进行滚动加载时，进行实时计算，更换后续需要渲染的元素。<br><img src="/2022/07/22/%E8%99%9A%E6%8B%9F%E6%BB%9A%E5%8A%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/virtual_list.png" alt="virtual_list"></p><h2 id="3-实现一个虚拟列表"><a href="#3-实现一个虚拟列表" class="headerlink" title="3. 实现一个虚拟列表"></a>3. 实现一个虚拟列表</h2><h2 id="4-更多可能性"><a href="#4-更多可能性" class="headerlink" title="4. 更多可能性"></a>4. 更多可能性</h2>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>性能优化</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Golang学习日记</title>
+    <link href="/2022/07/21/Golang%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/"/>
+    <url>/2022/07/21/Golang%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>人类高质量npm包赏析之react-error-boundary</title>
     <link href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/"/>
     <url>/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/</url>
