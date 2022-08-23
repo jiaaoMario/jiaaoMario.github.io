@@ -7,33 +7,34 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicon/favicon.jpeg">
+  <link rel="icon" href="/assets/img/favicon/favicon.jpeg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Mario.ma">
+  <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。 目录 人类高质量 npm 包赏析之 react-error-boundary">
+    <meta name="description" content="前言曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。  这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。 目录 人类高质量 npm 包赏析之 react-error-boundary">
 <meta property="og:type" content="article">
 <meta property="og:title" content="人类高质量npm包赏析">
-<meta property="og:url" content="http://jiaaomario.github.io/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/index.html">
-<meta property="og:site_name" content="Mario.ma 的个人博客">
-<meta property="og:description" content="前言曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。 目录 人类高质量 npm 包赏析之 react-error-boundary">
+<meta property="og:url" content="http://example.com/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/index.html">
+<meta property="og:site_name" content="Mario.ma的个人博客">
+<meta property="og:description" content="前言曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。  这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。 目录 人类高质量 npm 包赏析之 react-error-boundary">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://jiaaomario.github.io/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/cai.jpeg">
-<meta property="article:published_time" content="2022-07-15T17:06:32.000Z">
-<meta property="article:modified_time" content="2022-07-15T18:04:22.730Z">
-<meta property="article:author" content="Mario.ma">
+<meta property="og:image" content="http://example.com/assets/img/postBanner/miracle_banner.jpg">
+<meta property="article:published_time" content="2022-07-16T01:18:45.000Z">
+<meta property="article:modified_time" content="2022-08-23T04:55:25.774Z">
+<meta property="article:author" content="John Doe">
 <meta property="article:tag" content="源码解析">
 <meta property="article:tag" content="人类高质量npm包赏析">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://jiaaomario.github.io/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/cai.jpeg">
+<meta name="twitter:image" content="http://example.com/assets/img/postBanner/miracle_banner.jpg">
   
   
-  <title>人类高质量npm包赏析 - Mario.ma 的个人博客</title>
+  
+  <title>人类高质量npm包赏析 - Mario.ma的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -71,7 +72,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"jiaaomario.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"javascript"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -80,6 +81,8 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
 
   
 <meta name="generator" content="Hexo 6.2.0"></head>
@@ -95,7 +98,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Mario.ma</strong>
+      <strong>Mario.ma的技术博客</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -190,7 +193,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.jpeg') no-repeat center center; background-size: cover;">
+     style="background: url('/assets/img/banner.jpeg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -207,7 +210,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-16 01:06" pubdate>
+        <time datetime="2022-07-16 01:18" pubdate>
           2022年7月16日 凌晨
         </time>
       </span>
@@ -270,15 +273,19 @@
             <!-- SEO header -->
             <h1 style="display: none">人类高质量npm包赏析</h1>
             
-            <div class="markdown-body">
-              
-              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。<br><img src="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/cai.jpeg" srcset="/img/loading.gif" lazyload alt="菜鸡"><br>这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。</p>
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary">人类高质量 npm 包赏析之 react-error-boundary</a></li>
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。</p>
+<p><img src="/cai.jpeg" srcset="/img/loading.gif" lazyload alt="菜鸡"></p>
+<p>这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://jiaaomario.github.io/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary">人类高质量 npm 包赏析之 react-error-boundary</a></li>
 </ul>
 
-              
-            </div>
+                
+              </div>
+            
             <hr/>
             <div>
               <div class="post-metas my-3">
@@ -302,13 +309,13 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>人类高质量npm包赏析</div>
-      <div>http://jiaaomario.github.io/2022/07/16/人类高质量npm包赏析/</div>
+      <div>http://example.com/2022/07/16/人类高质量npm包赏析/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>Mario.ma</div>
+          <div>John Doe</div>
         </div>
       
       
@@ -317,6 +324,11 @@
           <div>2022年7月16日</div>
         </div>
       
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年8月23日</div>
+        </div>
       
       <div class="license-meta-item">
         <div>许可协议</div>
@@ -354,8 +366,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/09/%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81immutable/" title="我们为什么需要immutable">
-                        <span class="hidden-mobile">我们为什么需要immutable</span>
+                      <a href="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="Redux源码解析">
+                        <span class="hidden-mobile">Redux源码解析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -409,6 +421,7 @@
 
 
   
+
 
 
 
@@ -502,8 +515,6 @@
 
 
 
-
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -513,7 +524,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
     var toc = jQuery('#toc');
     if (toc.length === 0 || !window.tocbot) { return; }
     var boardCtn = jQuery('#board-ctn');
@@ -539,74 +550,9 @@
 </script>
 
 
-  <script>
-  (function() {
-    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
-    var enableCopy = CONFIG.copy_btn;
-    if (!enableLang && !enableCopy) {
-      return;
-    }
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
 
-    function getBgClass(ele) {
-      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
-    }
-
-    var copyTmpl = '';
-    copyTmpl += '<div class="code-widget">';
-    copyTmpl += 'LANG';
-    copyTmpl += '</div>';
-    jQuery('.markdown-body pre').each(function() {
-      var $pre = jQuery(this);
-      if ($pre.find('code.mermaid').length > 0) {
-        return;
-      }
-      if ($pre.find('span.line').length > 0) {
-        return;
-      }
-
-      var lang = '';
-
-      if (enableLang) {
-        lang = CONFIG.code_language.default;
-        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
-          lang = $pre[0].children[0].classList[1];
-        } else if ($pre[0].getAttribute('data-language')) {
-          lang = $pre[0].getAttribute('data-language');
-        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
-          lang = $pre[0].children[0].classList[1];
-          $pre.parent().addClass('code-wrapper');
-        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
-          $pre.wrap('<div class="code-wrapper"></div>');
-        }
-        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
-      }
-      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
-        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
-
-      if (enableCopy) {
-        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
-          var clipboard = new window.ClipboardJS('.copy-btn', {
-            target: function(trigger) {
-              var nodes = trigger.parentNode.childNodes;
-              for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].tagName === 'CODE') {
-                  return nodes[i];
-                }
-              }
-            }
-          });
-          clipboard.on('success', function(e) {
-            e.clearSelection();
-            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
-            setTimeout(function() {
-              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
-            }, 2000);
-          });
-        });
-      }
-    });
-  })();
-</script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
   

@@ -7,32 +7,35 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicon/favicon.jpeg">
+  <link rel="icon" href="/assets/img/favicon/favicon.jpeg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Mario.ma">
+  <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
     <meta name="description" content="版本控制工具: git 想必每一个开发者在日常的工作中都会接触到。我们在项目中可以使用 git 进行不同迭代、不同版本的协同开发工作。虽然 git 的能力足以使我们游刃有余的管理大型项目了，但是随着业务的发展，需求的快速迭代，意味着参与项目的开发团队会越来越庞大，这时候就需要在团队中规范一种硬性的分支管理模式，我们可以在团队内约定，也可以使用社区中被多次实践验证过的规范，git-flow 就是其中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="探究 git-flow">
-<meta property="og:url" content="http://jiaaomario.github.io/2022/08/03/%E6%8E%A2%E7%A9%B6-git-flow/index.html">
-<meta property="og:site_name" content="Mario.ma 的个人博客">
+<meta property="og:url" content="http://example.com/2022/08/03/%E6%8E%A2%E7%A9%B6-git-flow/index.html">
+<meta property="og:site_name" content="Mario.ma的个人博客">
 <meta property="og:description" content="版本控制工具: git 想必每一个开发者在日常的工作中都会接触到。我们在项目中可以使用 git 进行不同迭代、不同版本的协同开发工作。虽然 git 的能力足以使我们游刃有余的管理大型项目了，但是随着业务的发展，需求的快速迭代，意味着参与项目的开发团队会越来越庞大，这时候就需要在团队中规范一种硬性的分支管理模式，我们可以在团队内约定，也可以使用社区中被多次实践验证过的规范，git-flow 就是其中">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-03T15:22:35.000Z">
-<meta property="article:modified_time" content="2022-08-04T17:01:27.670Z">
-<meta property="article:author" content="Mario.ma">
+<meta property="og:image" content="http://example.com/assets/img/postBanner/git_flow_banner.jpeg">
+<meta property="article:published_time" content="2022-08-03T23:49:35.000Z">
+<meta property="article:modified_time" content="2022-08-23T04:55:25.782Z">
+<meta property="article:author" content="John Doe">
 <meta property="article:tag" content="git">
 <meta property="article:tag" content="git-flow">
 <meta property="article:tag" content="项目管理">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/assets/img/postBanner/git_flow_banner.jpeg">
   
   
-  <title>探究 git-flow - Mario.ma 的个人博客</title>
+  
+  <title>探究 git-flow - Mario.ma的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -70,7 +73,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"jiaaomario.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"javascript"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -79,6 +82,8 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
 
   
 <meta name="generator" content="Hexo 6.2.0"></head>
@@ -94,7 +99,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Mario.ma</strong>
+      <strong>Mario.ma的技术博客</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -189,7 +194,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.jpeg') no-repeat center center; background-size: cover;">
+     style="background: url('/assets/img/banner.jpeg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -206,7 +211,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-03 23:22" pubdate>
+        <time datetime="2022-08-03 23:49" pubdate>
           2022年8月3日 晚上
         </time>
       </span>
@@ -269,9 +274,10 @@
             <!-- SEO header -->
             <h1 style="display: none">探究 git-flow</h1>
             
-            <div class="markdown-body">
-              
-              <p>版本控制工具: <em>git</em> 想必每一个开发者在日常的工作中都会接触到。我们在项目中可以使用 git 进行不同迭代、不同版本的协同开发工作。虽然 git 的能力足以使我们游刃有余的管理大型项目了，但是随着业务的发展，需求的快速迭代，意味着参与项目的开发团队会越来越庞大，这时候就需要在团队中规范一种硬性的分支管理模式，我们可以在团队内约定，也可以使用社区中被多次实践验证过的规范，git-flow 就是其中之一。接下来，我们会探究其具体的管理规范和流程。</p>
+            
+              <div class="markdown-body">
+                
+                <p>版本控制工具: git 想必每一个开发者在日常的工作中都会接触到。我们在项目中可以使用 git 进行不同迭代、不同版本的协同开发工作。虽然 git 的能力足以使我们游刃有余的管理大型项目了，但是随着业务的发展，需求的快速迭代，意味着参与项目的开发团队会越来越庞大，这时候就需要在团队中规范一种硬性的分支管理模式，我们可以在团队内约定，也可以使用社区中被多次实践验证过的规范，git-flow 就是其中之一。接下来，我们会探究其具体的管理规范和流程。</p>
 <h2 id="什么是-git-flow"><a href="#什么是-git-flow" class="headerlink" title="什么是 git-flow"></a>什么是 git-flow</h2><p>在开篇中，我们对 git-flow 有了一个大致的认识：“一个基于 git 的版本流程规范”。因此，git-flow 并非另开炉灶，意图取代 git，而是对 git 命令进行了更多的扩展，这些扩展其实是根据 git-flow 的开发模式，将一系列的 git 操作进行了组合，我们在开发过程中，仅需要记住简单的扩展命令，就可以交给 git-flow 进行一系列的 git 执行操作。</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在 Mac 平台上，有多种方式支持全局安装 git-flow，例如 brew、curl 等。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">brew install git-flow<br></code></pre></td></tr></table></figure>
@@ -285,11 +291,11 @@
 <li>develop 分支将会是每一个 feature 功能分支的源分支。develop 分支将会汇总所有已完成的 feature 分支并最终和入到 master 分支上。</li>
 </ul>
 <h3 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h3><h4 id="1-开始一个-Feature"><a href="#1-开始一个-Feature" class="headerlink" title="1. 开始一个 Feature"></a>1. 开始一个 Feature</h4><p>在日常开发迭代中，经常会开发新的功能。而在上面我们了解到，git-flow 固定基础分支中，我们通常会从 develop 分支中拉取一个迭代 feature 分支，后续的开发均会在这个迭代分支中进行。</p>
-<p>例如我们准备开发一个迭代名为 B1020，git-flow 首先会帮助我们以 develop 分支为基分支，创建一个名为<em>feature&#x2F;B1020</em>的新分支并切换到这个分支上，后续的迭代一直在该分支进行即可。</p>
+<p>例如我们准备开发一个迭代名为 B1020，git-flow 首先会帮助我们以 develop 分支为基分支，创建一个名为 feature&#x2F;B1020 的新分支并切换到这个分支上，后续的迭代一直在该分支进行即可。</p>
 <p>上述步骤对应的 git-flow 命令为:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">git flow feature start B1020<br></code></pre></td></tr></table></figure>
 
-<h4 id="2-完成一个-Feature"><a href="#2-完成一个-Feature" class="headerlink" title="2. 完成一个 Feature"></a>2. 完成一个 Feature</h4><p>当我们在 Feature 分支上完成了功能开发工作，此时 Feature 分支便完成了他的任务，即将退出项目管理的声明周期。上面介绍有介绍到，develop 分支是用于<em>汇总所有已完成的 feature 分支</em>。我们此时便可以：</p>
+<h4 id="2-完成一个-Feature"><a href="#2-完成一个-Feature" class="headerlink" title="2. 完成一个 Feature"></a>2. 完成一个 Feature</h4><p>当我们在 Feature 分支上完成了功能开发工作，此时 Feature 分支便完成了他的任务，即将退出项目管理的声明周期。上面介绍有介绍到，<strong>develop 分支是用于汇总所有已完成的 feature 分支</strong>。我们此时便可以：</p>
 <ol>
 <li>将 Feature 分支合入到 develop 分支中，</li>
 <li>删除迭代分支</li>
@@ -314,20 +320,21 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">git flow release finish 1.0.1<br></code></pre></td></tr></table></figure>
 
 <h3 id="Hotfix"><a href="#Hotfix" class="headerlink" title="Hotfix"></a>Hotfix</h3><p>Bug 是每一个程序员的敌人，即使再壮健的系统，bug 也有可能随时随地的出现。这是无法避免的，但我们可以通过版本控制的方式，将 bug 快速解决，把影响降到最低。</p>
-<h4 id="快速响应"><a href="#快速响应" class="headerlink" title="快速响应"></a>快速响应</h4><p>当我们在线上或者 release 预发布中遇到 bug 时，为了快速解决问题，我们可以以 master 为基本分支切出一个 hotfix 分支，如解决 uc 权限问题：<code>fix-uc-permission</code>，便可以切出一个<em>hotfix&#x2F;fix-uc-permission</em>对问题进行修复。</p>
+<h4 id="快速响应"><a href="#快速响应" class="headerlink" title="快速响应"></a>快速响应</h4><p>当我们在线上或者 release 预发布中遇到 bug 时，为了快速解决问题，我们可以以 master 为基本分支切出一个 hotfix 分支，如解决 uc 权限问题：<strong>fix-uc-permission</strong>，便可以切出一个 hotfix&#x2F;fix-uc-permission 对问题进行修复。</p>
 <p>上述步骤对应的 git-flow 命令为:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">git flow hotfix start fix-uc-permission<br></code></pre></td></tr></table></figure>
 
 <h4 id="完成-hotfix"><a href="#完成-hotfix" class="headerlink" title="完成 hotfix"></a>完成 hotfix</h4><p>当完成了对 bug 的修复工作，接下来就涉及 bugfix 流程的上线行为了。因为 hotfix 可以视为一次补丁和发布，因此行为和 release 发布类似:</p>
 <ol>
-<li>将涉及改动同步至 master 与 develop，其目的和 release 发布时同步是一致的。 2.</li>
+<li>将涉及改动同步至 master 与 develop，其目的和 release 发布时同步是一致的。</li>
 <li>hotfix 提交会被标记上这个 hotfix 的名字。</li>
 <li>删除 hotfix 分支，切换当前分支为 develop。</li>
 </ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上就是 git-flow 的版本控制的核心思想，其实思考一下，也许有很多的团队虽然没有使用 git-flow 进行开发管理，但基本思想是和 git-flow 有异曲同工之妙的。git-flow 的存在只是为了将成熟的开发管理模式进行了集成式包装。甚至我们可以以 git-flow 作为一个 submodule 进行二次封装，来实现一个更适合团队特定需求的版本开发管理工具。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是 git-flow 的版本控制的核心思想，其实思考一下，也许有很多的团队虽然没有使用 git-flow 进行开发管理，但基本思想是和 git-flow 有异曲同工之妙的。git-flow 的存在只是为了将成熟的开发管理模式进行了集成式包装。甚至我们可以以 git-flow 作为一个 submodule 进行二次封装，来实现一个更适合团队特定需求的版本开发管理工具。</p>
 
-              
-            </div>
+                
+              </div>
+            
             <hr/>
             <div>
               <div class="post-metas my-3">
@@ -353,13 +360,13 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>探究 git-flow</div>
-      <div>http://jiaaomario.github.io/2022/08/03/探究-git-flow/</div>
+      <div>http://example.com/2022/08/03/探究-git-flow/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>Mario.ma</div>
+          <div>John Doe</div>
         </div>
       
       
@@ -368,6 +375,11 @@
           <div>2022年8月3日</div>
         </div>
       
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年8月23日</div>
+        </div>
       
       <div class="license-meta-item">
         <div>许可协议</div>
@@ -454,6 +466,7 @@
 
 
   
+
 
 
 
@@ -547,8 +560,6 @@
 
 
 
-
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -558,7 +569,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
     var toc = jQuery('#toc');
     if (toc.length === 0 || !window.tocbot) { return; }
     var boardCtn = jQuery('#board-ctn');
@@ -584,74 +595,9 @@
 </script>
 
 
-  <script>
-  (function() {
-    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
-    var enableCopy = CONFIG.copy_btn;
-    if (!enableLang && !enableCopy) {
-      return;
-    }
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
 
-    function getBgClass(ele) {
-      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
-    }
-
-    var copyTmpl = '';
-    copyTmpl += '<div class="code-widget">';
-    copyTmpl += 'LANG';
-    copyTmpl += '</div>';
-    jQuery('.markdown-body pre').each(function() {
-      var $pre = jQuery(this);
-      if ($pre.find('code.mermaid').length > 0) {
-        return;
-      }
-      if ($pre.find('span.line').length > 0) {
-        return;
-      }
-
-      var lang = '';
-
-      if (enableLang) {
-        lang = CONFIG.code_language.default;
-        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
-          lang = $pre[0].children[0].classList[1];
-        } else if ($pre[0].getAttribute('data-language')) {
-          lang = $pre[0].getAttribute('data-language');
-        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
-          lang = $pre[0].children[0].classList[1];
-          $pre.parent().addClass('code-wrapper');
-        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
-          $pre.wrap('<div class="code-wrapper"></div>');
-        }
-        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
-      }
-      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
-        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
-
-      if (enableCopy) {
-        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
-          var clipboard = new window.ClipboardJS('.copy-btn', {
-            target: function(trigger) {
-              var nodes = trigger.parentNode.childNodes;
-              for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].tagName === 'CODE') {
-                  return nodes[i];
-                }
-              }
-            }
-          });
-          clipboard.on('success', function(e) {
-            e.clearSelection();
-            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
-            setTimeout(function() {
-              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
-            }, 2000);
-          });
-        });
-      }
-    });
-  })();
-</script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
   
