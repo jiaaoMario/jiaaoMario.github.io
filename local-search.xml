@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>如何使用Normalizr格式化你的数据</title>
+    <link href="/2022/08/27/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Normalizr%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BD%A0%E7%9A%84%E6%95%B0%E6%8D%AE/"/>
+    <url>/2022/08/27/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Normalizr%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BD%A0%E7%9A%84%E6%95%B0%E6%8D%AE/</url>
+    
+    <content type="html"><![CDATA[<h2 id="我们为何选择-Normalizr"><a href="#我们为何选择-Normalizr" class="headerlink" title="我们为何选择 Normalizr"></a>我们为何选择 Normalizr</h2><p>作为前端开发，我们难免经常会和复杂甚至混乱的接口数据结构打交道。这个现象在 ToB 端项目开发中尤为明显。虽然在开发阶段，前后端可以共同决定接口的数据结构，但往往实际情况是，即使约定好了固定的数据结构，依然无法完全满足前端的业务或数据逻辑。这并不是前后端任何一方的问题，而是前后端的开发角度不同，并且过于复杂的业务靠固定的数据结构是无法支撑的。</p><p>在之前遇到这种问题，前端往往是通过复杂的遍历、合并、分离的操作，将接口返回的数据加工成为符合预期的数据类型。这样做确实可以解决问题。但就像上面提到的，在 toB 端可能会有数以百计的接口。如果还是通过这样的方式去格式化，抛开带来的心智负担不说，业务逻辑中嵌入高度耦合的格式化代码会使项目日渐臃肿，更可怕的是，往后在迭代中，接口发生变动，很有可能对应的格式化代码也要重新进行开发！</p><p>这时候便轮到主角出现了，它就是 Normalizr。</p><h2 id="Normalizr-可以为我们带来什么"><a href="#Normalizr-可以为我们带来什么" class="headerlink" title="Normalizr 可以为我们带来什么"></a>Normalizr 可以为我们带来什么</h2>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>normalizr</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>探究 git-flow</title>
     <link href="/2022/08/03/%E6%8E%A2%E7%A9%B6-git-flow/"/>
     <url>/2022/08/03/%E6%8E%A2%E7%A9%B6-git-flow/</url>
@@ -58,9 +77,9 @@
     
     <tags>
       
-      <tag>人类高质量npm包赏析</tag>
-      
       <tag>react</tag>
+      
+      <tag>人类高质量npm包赏析</tag>
       
     </tags>
     
