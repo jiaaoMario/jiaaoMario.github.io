@@ -7,35 +7,34 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicon/favicon.jpeg">
+  <link rel="icon" href="/assets/img/favicon/favicon.jpeg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Mario.ma">
+  <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
     <meta name="description" content="回想一下自己的代码生涯，大一开始接触前端，每天跟着 HTML、CSS、JavaScript 死磕。那时候，以为一个个&lt;script&gt;&lt;&#x2F;script&gt;就是全世界。然而在接触到前端三大件、各类模块构建工具后，仿佛发现了新大陆，原来前端也可以玩的如此花样百出，回头就将那一个个 script 打入了冷宫。转眼间，步入社会已经数载，一切都还顺利，从事着前端开发的工作，也算大学时的付">
 <meta property="og:type" content="article">
 <meta property="og:title" content="古早前端程序员是如何构建项目的">
-<meta property="og:url" content="http://jiaaomario.github.io/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/index.html">
-<meta property="og:site_name" content="Mario.ma 的个人博客">
+<meta property="og:url" content="http://example.com/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/index.html">
+<meta property="og:site_name" content="Mario.ma的个人博客">
 <meta property="og:description" content="回想一下自己的代码生涯，大一开始接触前端，每天跟着 HTML、CSS、JavaScript 死磕。那时候，以为一个个&lt;script&gt;&lt;&#x2F;script&gt;就是全世界。然而在接触到前端三大件、各类模块构建工具后，仿佛发现了新大陆，原来前端也可以玩的如此花样百出，回头就将那一个个 script 打入了冷宫。转眼间，步入社会已经数载，一切都还顺利，从事着前端开发的工作，也算大学时的付">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://jiaaomario.github.io/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/files_strack.png">
-<meta property="og:image" content="http://jiaaomario.github.io/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/open.png">
-<meta property="og:image" content="http://jiaaomario.github.io/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/close.png">
-<meta property="article:published_time" content="2022-07-27T16:03:21.000Z">
-<meta property="article:modified_time" content="2022-07-28T17:30:28.037Z">
-<meta property="article:author" content="Mario.ma">
+<meta property="og:image" content="http://example.com/assets/img/postBanner/moon_banner.jpg">
+<meta property="article:published_time" content="2022-07-28T23:36:42.000Z">
+<meta property="article:modified_time" content="2022-08-26T06:29:40.249Z">
+<meta property="article:author" content="John Doe">
 <meta property="article:tag" content="人类高质量npm包赏析">
 <meta property="article:tag" content="IScroll">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://jiaaomario.github.io/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/files_strack.png">
+<meta name="twitter:image" content="http://example.com/assets/img/postBanner/moon_banner.jpg">
   
   
-  <title>古早前端程序员是如何构建项目的 - Mario.ma 的个人博客</title>
+  
+  <title>古早前端程序员是如何构建项目的 - Mario.ma的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -73,7 +72,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"jiaaomario.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"javascript"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -82,6 +81,8 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
 
   
 <meta name="generator" content="Hexo 6.2.0"></head>
@@ -97,7 +98,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>Mario.ma</strong>
+      <strong>Mario.ma的技术博客</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -192,7 +193,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.jpeg') no-repeat center center; background-size: cover;">
+     style="background: url('/assets/img/banner.jpeg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
@@ -209,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-28 00:03" pubdate>
-          2022年7月28日 凌晨
+        <time datetime="2022-07-28 23:36" pubdate>
+          2022年7月28日 晚上
         </time>
       </span>
     
@@ -272,9 +273,10 @@
             <!-- SEO header -->
             <h1 style="display: none">古早前端程序员是如何构建项目的</h1>
             
-            <div class="markdown-body">
-              
-              <p>回想一下自己的代码生涯，大一开始接触前端，每天跟着 HTML、CSS、JavaScript 死磕。那时候，以为一个个<code>&lt;script&gt;&lt;/script&gt;</code>就是全世界。然而在接触到前端三大件、各类模块构建工具后，仿佛发现了新大陆，原来前端也可以玩的如此花样百出，回头就将那一个个 script 打入了冷宫。转眼间，步入社会已经数载，一切都还顺利，从事着前端开发的工作，也算大学时的付出没有白费。近日闲来无事，在 github 上逛逛仓库，发现了已经停止维护的 IScroll，看着作者将近十年前的 commit 和古典的代码风格，仿佛一下子回到了自己的大学时代。感叹代码可以改变我们的生活，也可以记录我们的青春的同时，也勾起了我对于其源码和构建方式的兴趣，故写此文章，本文主要讨论的是在没有 Webpack 的时代，前端程序员们是如何编写一个庞大的包的。希望本篇文章，可以带你找回那个少年的你。</p>
+            
+              <div class="markdown-body">
+                
+                <p>回想一下自己的代码生涯，大一开始接触前端，每天跟着 HTML、CSS、JavaScript 死磕。那时候，以为一个个<code>&lt;script&gt;&lt;/script&gt;</code>就是全世界。然而在接触到前端三大件、各类模块构建工具后，仿佛发现了新大陆，原来前端也可以玩的如此花样百出，回头就将那一个个 script 打入了冷宫。转眼间，步入社会已经数载，一切都还顺利，从事着前端开发的工作，也算大学时的付出没有白费。近日闲来无事，在 github 上逛逛仓库，发现了已经停止维护的 IScroll，看着作者将近十年前的 commit 和古典的代码风格，仿佛一下子回到了自己的大学时代。感叹代码可以改变我们的生活，也可以记录我们的青春的同时，也勾起了我对于其源码和构建方式的兴趣，故写此文章，本文主要讨论的是在没有 Webpack 的时代，前端程序员们是如何编写一个庞大的包的。希望本篇文章，可以带你找回那个少年的你。</p>
 <h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><p>首先，IScroll 已经是十多年前的包了，整个项目全部是以 ES5 为语法进行编写的。在那个没有 Webpack、Gulp 等现代模块打包工具的年代里，我们对于项目的模块化拆分策略往往是将不同的 script 文件按照依赖顺序进行引入或者直接在一个文件中进行编写，这样的开发模式带来的问题显而易见：要么牺牲了项目的模块化，要么 script 一个个按需的引用顺序带来了不小的心智负担。而 IScroll 的模块化拆分使我眼前一亮。</p>
 <h2 id="build-js"><a href="#build-js" class="headerlink" title="build.js"></a>build.js</h2><p>IScroll 的构建脚本位于根目录的 build.js 中，脚本依赖的第三方包很清晰：</p>
 <ul>
@@ -282,9 +284,10 @@
 <li>uglify-js 现在也很常用的代码混淆工具。</li>
 </ul>
 <p>build 脚本的开始，IScroll 通过读取命令行参数来获取构建目标。不同模式的 IScroll 可能依赖的内容是不同的。因此在这一步，IScroll 便可以分析出本次构建需要依赖的具体文件。IScroll 主要的构建行为位于 build 函数中，首先 IScroll 定义了一个文件执行栈，栈内的文件会依次弹出进行读取操作。具体代码可见下面的代码片段：</p>
-<p><img src="/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/files_strack.png" srcset="/img/loading.gif" lazyload alt="files_strack"></p>
-<p>我们把重点放在 open.js 以及 close.js 上，代码很简单，相信有一定模块化开发经验的同学会一眼看出，这是要构建一个 <em>IFEE</em> 私有模块，而在这两个文件中间的文件，则会被定义在这个私有模块下。这样的方式可以为 IScroll 内部变量和方法创建出一个私有化的 namespace，防止全局污染。</p>
-<p><img src="/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/open.png" srcset="/img/loading.gif" lazyload alt="open"><br><img src="/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/close.png" srcset="/img/loading.gif" lazyload alt="close"></p>
+<p><img src="/files_strack.png" srcset="/img/loading.gif" lazyload alt="files_strack"></p>
+<p>我们把重点放在 open.js 以及 close.js 上，代码很简单，相信有一定模块化开发经验的同学会一眼看出，这是要构建一个 IFEE 私有模块，而在这两个文件中间的文件，则会被定义在这个私有模块下。这样的方式可以为 IScroll 内部变量和方法创建出一个私有化的 namespace，防止全局污染。</p>
+<p><img src="/open.png" srcset="/img/loading.gif" lazyload alt="open"></p>
+<p><img src="/close.png" srcset="/img/loading.gif" lazyload alt="close"></p>
 <p>在确认了文件打包的上下组成和注入顺序后，我们便可以进行文件读取拼接操作。首先在 build 文件的最开始，作者通过版本号等信息，拼接出了一段版权和包版本信息，拼接到了最先读取的文件的顶部。仔细想想，这和我们在使用 Webpack 的过程中，使用 <code>webpack.BannerPlugin</code>插件注入头信息有异曲同工之妙。</p>
 <p>当我们将文件栈中的文件依次读取拼接后，接着进行下一步，占位符的替换和定点插入。因为 IScroll 将一些独立的功能模块拆分为了不同的文件，IScroll 便通过读取配置项，获取占位符的方式，实现插件模块的引入和占位符替换为变量。</p>
 <p>执行到这里，我们已经拿到了完整的内容，这时便可以使用写文件的操作写入 out 目录中。后续还可以进行一系列的操作，如使用 jsHint 进行代码风格校验，使用 uglify-js 对先前拼接的文件内容进行混淆压缩写入到另外的 dist 目录中，自此，便完成了 IScroll 的构建工作。</p>
@@ -298,8 +301,9 @@
 <p>今人不见古时月，今月曾经照古人。</p>
 </blockquote>
 
-              
-            </div>
+                
+              </div>
+            
             <hr/>
             <div>
               <div class="post-metas my-3">
@@ -323,13 +327,13 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>古早前端程序员是如何构建项目的</div>
-      <div>http://jiaaomario.github.io/2022/07/28/古早前端程序员是如何构建项目的/</div>
+      <div>http://example.com/2022/07/28/古早前端程序员是如何构建项目的/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>Mario.ma</div>
+          <div>John Doe</div>
         </div>
       
       
@@ -338,6 +342,11 @@
           <div>2022年7月28日</div>
         </div>
       
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年8月26日</div>
+        </div>
       
       <div class="license-meta-item">
         <div>许可协议</div>
@@ -375,8 +384,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/22/%E8%99%9A%E6%8B%9F%E6%BB%9A%E5%8A%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" title="虚拟滚动实现原理">
-                        <span class="hidden-mobile">虚拟滚动实现原理</span>
+                      <a href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/" title="人类高质量npm包赏析之react-error-boundary">
+                        <span class="hidden-mobile">人类高质量npm包赏析之react-error-boundary</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -430,6 +439,7 @@
 
 
   
+
 
 
 
@@ -523,8 +533,6 @@
 
 
 
-
-
   
     <script  src="/js/img-lazyload.js" ></script>
   
@@ -534,7 +542,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.0/tocbot.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
     var toc = jQuery('#toc');
     if (toc.length === 0 || !window.tocbot) { return; }
     var boardCtn = jQuery('#board-ctn');
@@ -560,74 +568,9 @@
 </script>
 
 
-  <script>
-  (function() {
-    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
-    var enableCopy = CONFIG.copy_btn;
-    if (!enableLang && !enableCopy) {
-      return;
-    }
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
 
-    function getBgClass(ele) {
-      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
-    }
-
-    var copyTmpl = '';
-    copyTmpl += '<div class="code-widget">';
-    copyTmpl += 'LANG';
-    copyTmpl += '</div>';
-    jQuery('.markdown-body pre').each(function() {
-      var $pre = jQuery(this);
-      if ($pre.find('code.mermaid').length > 0) {
-        return;
-      }
-      if ($pre.find('span.line').length > 0) {
-        return;
-      }
-
-      var lang = '';
-
-      if (enableLang) {
-        lang = CONFIG.code_language.default;
-        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
-          lang = $pre[0].children[0].classList[1];
-        } else if ($pre[0].getAttribute('data-language')) {
-          lang = $pre[0].getAttribute('data-language');
-        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
-          lang = $pre[0].children[0].classList[1];
-          $pre.parent().addClass('code-wrapper');
-        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
-          $pre.wrap('<div class="code-wrapper"></div>');
-        }
-        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
-      }
-      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
-        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
-
-      if (enableCopy) {
-        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
-          var clipboard = new window.ClipboardJS('.copy-btn', {
-            target: function(trigger) {
-              var nodes = trigger.parentNode.childNodes;
-              for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].tagName === 'CODE') {
-                  return nodes[i];
-                }
-              }
-            }
-          });
-          clipboard.on('success', function(e) {
-            e.clearSelection();
-            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
-            setTimeout(function() {
-              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
-            }, 2000);
-          });
-        });
-      }
-    });
-  })();
-</script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
   
