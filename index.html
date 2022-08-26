@@ -1,207 +1,684 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicon/favicon.jpeg">
+  <link rel="icon" href="/assets/img/favicon/favicon.jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
   
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Mario.ma的个人博客">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Mario.ma的个人博客">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<meta name="twitter:card" content="summary_large_image">
   
   
-    <link rel="shortcut icon" href="/favicon.png">
   
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+  <title>Mario.ma的个人博客</title>
 
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
 
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mario.ma的技术博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/05/12/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-05-12T13:10:49.787Z" itemprop="datePublished">2022-05-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
         
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/05/12/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/05/12/hello-world/" data-id="cl3316c8o0000btttdkhs254h" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-</section>
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/05/">May 2022</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
         
-          <li>
-            <a href="/2022/05/12/hello-world/">Hello World</a>
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
       </ul>
     </div>
   </div>
+</nav>
 
   
-</aside>
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/assets/img/banner.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="This rainy day is temporary"></span>
+          
+        </div>
+
         
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
+
       
-      &copy; 2022 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
   </div>
-</footer>
+</div>
 
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/08/03/%E6%8E%A2%E7%A9%B6-git-flow/" target="_self">
+          <img src="/assets/img/postBanner/git_flow_banner.jpeg" srcset="/img/loading.gif" lazyload alt="探究 git-flow">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/08/03/%E6%8E%A2%E7%A9%B6-git-flow/" target="_self">
+          探究 git-flow
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2022/08/03/%E6%8E%A2%E7%A9%B6-git-flow/" target="_self">
+        <div>
+          版本控制工具: git 想必每一个开发者在日常的工作中都会接触到。我们在项目中可以使用 git 进行不同迭代、不同版本的协同开发工作。虽然 git 的能力足以使我们游刃有余的管理大型项目了，但是随着业务的发展，需求的快速迭代，意味着参与项目的开发团队会越来越庞大，这时候就需要在团队中规范一种硬性的分支管理模式，我们可以在团队内约定，也可以使用社区中被多次实践验证过的规范，git-flow 就是其中
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-03 23:49" pubdate>
+              2022-08-03
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/git/">#git</a>
+            
+              <a href="/tags/git-flow/">#git-flow</a>
+            
+              <a href="/tags/%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86/">#项目管理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/" target="_self">
+          <img src="/assets/img/postBanner/moon_banner.jpg" srcset="/img/loading.gif" lazyload alt="古早前端程序员是如何构建项目的">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/" target="_self">
+          古早前端程序员是如何构建项目的
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/" target="_self">
+        <div>
+          回想一下自己的代码生涯，大一开始接触前端，每天跟着 HTML、CSS、JavaScript 死磕。那时候，以为一个个&lt;script&gt;&lt;&#x2F;script&gt;就是全世界。然而在接触到前端三大件、各类模块构建工具后，仿佛发现了新大陆，原来前端也可以玩的如此花样百出，回头就将那一个个 script 打入了冷宫。转眼间，步入社会已经数载，一切都还顺利，从事着前端开发的工作，也算大学时的付
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-28 23:36" pubdate>
+              2022-07-28
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/">#人类高质量npm包赏析</a>
+            
+              <a href="/tags/IScroll/">#IScroll</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/" target="_self">
+          <img src="/assets/img/postBanner/errorboundary_banner.jpg" srcset="/img/loading.gif" lazyload alt="人类高质量npm包赏析之react-error-boundary">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/" target="_self">
+          人类高质量npm包赏析之react-error-boundary
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/" target="_self">
+        <div>
+          前言react-error-boundary，就 package 的名字而言便可以猜出，这是一个针对 React UI 级别的的异常处理模块。对于使用命令式编写的代码来说，我们经常会使用 try.catch 进行异常处理和降级: 12345try &amp;#123;  &#x2F;&#x2F; do some wrong thing&amp;#125; catch (err) &amp;#123;  &#x2F;&#x2F; 进行异常&amp;#125;  而在 U
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-16 01:21" pubdate>
+              2022-07-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/">#人类高质量npm包赏析</a>
+            
+              <a href="/tags/react/">#react</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/" target="_self">
+          <img src="/assets/img/postBanner/miracle_banner.jpg" srcset="/img/loading.gif" lazyload alt="人类高质量npm包赏析">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/" target="_self">
+          人类高质量npm包赏析
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/" target="_self">
+        <div>
+          前言曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。  这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。 目录 人类高质量 npm 包赏析之 react-error-boundary
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-16 01:18" pubdate>
+              2022-07-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">#源码解析</a>
+            
+              <a href="/tags/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/">#人类高质量npm包赏析</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" target="_self">
+          <img src="/assets/img/postBanner/redux-logo-landscape.png" srcset="/img/loading.gif" lazyload alt="Redux源码解析">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" target="_self">
+          Redux源码解析
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" target="_self">
+        <div>
+          前言Redux 是最为流行的 JavaScript 状态管理容器之一，其具有单一数据源、状态树数据只读、通过 Reducers 纯函数变更等特性使得运行时状态具有可预测的特性。本篇文章我们将深入 Redux 源码，通过学习其内部实现，从而加深我们对 Redux 的理解，便于未来工作中的更好使用。在阅读本文章前，建议读者对 Redux 有一定的使用经验，如对 Redux 较为陌生，可移步redux
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-02 20:31" pubdate>
+              2022-07-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redux/">#Redux</a>
+            
+              <a href="/tags/React/">#React</a>
+            
+              <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">#源码解析</a>
+            
+              <a href="/tags/%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/">#状态管理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/03/12/%E5%A4%A7%E8%AF%9DH5%E4%B8%8ENative/" target="_self">
+          <img src="/assets/img/postBanner/jockeyjs_banner.jpg" srcset="/img/loading.gif" lazyload alt="大话H5与Native">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/12/%E5%A4%A7%E8%AF%9DH5%E4%B8%8ENative/" target="_self">
+          大话H5与Native
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2022/03/12/%E5%A4%A7%E8%AF%9DH5%E4%B8%8ENative/" target="_self">
+        <div>
+          北京的疫情反反复复，至今已喜提两次居家隔离 👨🏻‍💻。好在最近版本迭代已完成，可以抽出时间静下心来做些技术拓展。 本文你将了解到什么？本文将从 hybrid 的基本架构和混合式开发的理论实现入手，通过阅读本文，阁下将有机会通过分析 JockeyJs 的源码从而了解整个 Hybrid 的原理。 什么是 hybrid?随着移动端设备的大规模普及，Hybrid 已经成为了最主流的快速迭代方案。Hy
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-12 00:08" pubdate>
+              2022-03-12
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">#源码解析</a>
+            
+              <a href="/tags/Hybrid/">#Hybrid</a>
+            
+              <a href="/tags/JockeyJS/">#JockeyJS</a>
+            
+              <a href="/tags/%E6%B7%B7%E5%90%88%E5%BC%8F%E5%BC%80%E5%8F%91/">#混合式开发</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/01/05/Promise-A-%E8%A7%84%E8%8C%83%E7%BF%BB%E8%AF%91/" target="_self">
+          <img src="/assets/img/postBanner/promiseA_banner.jpg" srcset="/img/loading.gif" lazyload alt="Promise/A+规范翻译">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/01/05/Promise-A-%E8%A7%84%E8%8C%83%E7%BF%BB%E8%AF%91/" target="_self">
+          Promise/A+规范翻译
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/2021/01/05/Promise-A-%E8%A7%84%E8%8C%83%E7%BF%BB%E8%AF%91/" target="_self">
+        <div>
+          前言Promise 是我们在日常开发中必不可少的 API。Promise 的出现，解决了臭名昭著的回调地狱异步编程模式。Promise 作为一个存储着异步调用函数的容器，通过使用 then、catch 等方法注册回调完成后执行的事件，极大程度上优化了异步开发体验。现如今的 Promise 规范中，主要是在 Promise&#x2F;A+规范之上，扩展了 all、race、allSettled 等方
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-05 13:35" pubdate>
+              2021-01-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/javaScript/">#javaScript</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     
 
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-<script src="/js/jquery-3.4.1.min.js"></script>
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
 
 
 
-<script src="/js/script.js"></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
 
 
-  </div>
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>

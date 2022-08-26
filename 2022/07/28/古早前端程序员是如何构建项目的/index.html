@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicon/favicon.jpeg">
+  <link rel="icon" href="/assets/img/favicon/favicon.jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="回想一下自己的代码生涯，大一开始接触前端，每天跟着 HTML、CSS、JavaScript 死磕。那时候，以为一个个&lt;script&gt;&lt;&#x2F;script&gt;就是全世界。然而在接触到前端三大件、各类模块构建工具后，仿佛发现了新大陆，原来前端也可以玩的如此花样百出，回头就将那一个个 script 打入了冷宫。转眼间，步入社会已经数载，一切都还顺利，从事着前端开发的工作，也算大学时的付">
+<meta property="og:type" content="article">
+<meta property="og:title" content="古早前端程序员是如何构建项目的">
+<meta property="og:url" content="http://example.com/2022/07/28/%E5%8F%A4%E6%97%A9%E5%89%8D%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%98%E6%98%AF%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%9A%84/index.html">
+<meta property="og:site_name" content="Mario.ma的个人博客">
+<meta property="og:description" content="回想一下自己的代码生涯，大一开始接触前端，每天跟着 HTML、CSS、JavaScript 死磕。那时候，以为一个个&lt;script&gt;&lt;&#x2F;script&gt;就是全世界。然而在接触到前端三大件、各类模块构建工具后，仿佛发现了新大陆，原来前端也可以玩的如此花样百出，回头就将那一个个 script 打入了冷宫。转眼间，步入社会已经数载，一切都还顺利，从事着前端开发的工作，也算大学时的付">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/img/postBanner/moon_banner.jpg">
+<meta property="article:published_time" content="2022-07-28T23:36:42.000Z">
+<meta property="article:modified_time" content="2022-08-26T06:27:32.043Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="人类高质量npm包赏析">
+<meta property="article:tag" content="IScroll">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/assets/img/postBanner/moon_banner.jpg">
+  
+  
+  
+  <title>古早前端程序员是如何构建项目的 - Mario.ma的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mario.ma的技术博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/assets/img/banner.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="古早前端程序员是如何构建项目的"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-28 23:36" pubdate>
+          2022年7月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">古早前端程序员是如何构建项目的</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>回想一下自己的代码生涯，大一开始接触前端，每天跟着 HTML、CSS、JavaScript 死磕。那时候，以为一个个<code>&lt;script&gt;&lt;/script&gt;</code>就是全世界。然而在接触到前端三大件、各类模块构建工具后，仿佛发现了新大陆，原来前端也可以玩的如此花样百出，回头就将那一个个 script 打入了冷宫。转眼间，步入社会已经数载，一切都还顺利，从事着前端开发的工作，也算大学时的付出没有白费。近日闲来无事，在 github 上逛逛仓库，发现了已经停止维护的 IScroll，看着作者将近十年前的 commit 和古典的代码风格，仿佛一下子回到了自己的大学时代。感叹代码可以改变我们的生活，也可以记录我们的青春的同时，也勾起了我对于其源码和构建方式的兴趣，故写此文章，本文主要讨论的是在没有 Webpack 的时代，前端程序员们是如何编写一个庞大的包的。希望本篇文章，可以带你找回那个少年的你。</p>
+<h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><p>首先，IScroll 已经是十多年前的包了，整个项目全部是以 ES5 为语法进行编写的。在那个没有 Webpack、Gulp 等现代模块打包工具的年代里，我们对于项目的模块化拆分策略往往是将不同的 script 文件按照依赖顺序进行引入或者直接在一个文件中进行编写，这样的开发模式带来的问题显而易见：要么牺牲了项目的模块化，要么 script 一个个按需的引用顺序带来了不小的心智负担。而 IScroll 的模块化拆分使我眼前一亮。</p>
+<h2 id="build-js"><a href="#build-js" class="headerlink" title="build.js"></a>build.js</h2><p>IScroll 的构建脚本位于根目录的 build.js 中，脚本依赖的第三方包很清晰：</p>
+<ul>
+<li>jshint 在 eslint 之前是最流行的代码风格格式化工具。</li>
+<li>uglify-js 现在也很常用的代码混淆工具。</li>
+</ul>
+<p>build 脚本的开始，IScroll 通过读取命令行参数来获取构建目标。不同模式的 IScroll 可能依赖的内容是不同的。因此在这一步，IScroll 便可以分析出本次构建需要依赖的具体文件。IScroll 主要的构建行为位于 build 函数中，首先 IScroll 定义了一个文件执行栈，栈内的文件会依次弹出进行读取操作。具体代码可见下面的代码片段：</p>
+<p><img src="/files_strack.png" srcset="/img/loading.gif" lazyload alt="files_strack"></p>
+<p>我们把重点放在 open.js 以及 close.js 上，代码很简单，相信有一定模块化开发经验的同学会一眼看出，这是要构建一个 IFEE 私有模块，而在这两个文件中间的文件，则会被定义在这个私有模块下。这样的方式可以为 IScroll 内部变量和方法创建出一个私有化的 namespace，防止全局污染。</p>
+<p><img src="/open.png" srcset="/img/loading.gif" lazyload alt="open"></p>
+<p><img src="/close.png" srcset="/img/loading.gif" lazyload alt="close"></p>
+<p>在确认了文件打包的上下组成和注入顺序后，我们便可以进行文件读取拼接操作。首先在 build 文件的最开始，作者通过版本号等信息，拼接出了一段版权和包版本信息，拼接到了最先读取的文件的顶部。仔细想想，这和我们在使用 Webpack 的过程中，使用 <code>webpack.BannerPlugin</code>插件注入头信息有异曲同工之妙。</p>
+<p>当我们将文件栈中的文件依次读取拼接后，接着进行下一步，占位符的替换和定点插入。因为 IScroll 将一些独立的功能模块拆分为了不同的文件，IScroll 便通过读取配置项，获取占位符的方式，实现插件模块的引入和占位符替换为变量。</p>
+<p>执行到这里，我们已经拿到了完整的内容，这时便可以使用写文件的操作写入 out 目录中。后续还可以进行一系列的操作，如使用 jsHint 进行代码风格校验，使用 uglify-js 对先前拼接的文件内容进行混淆压缩写入到另外的 dist 目录中，自此，便完成了 IScroll 的构建工作。</p>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><p>即使是像 IScroll 一类的已经停止维护的项目，在阅读前辈们的代码过程中，还是能够收获很多：</p>
+<ol>
+<li>JavaScript 的模块化发展进程，在现在的模块构建工具诞生之前，我们可以如何组织项目的结构并进行构建。</li>
+<li>从 IScroll 的构建思想，延伸至 Webpack 中，可以发现，Iscroll 和 Webpack 无论是关注 entry，output 的处理流程，还是对代码插入点的处理方式，都有一些类似的地方。也正是一批批前辈的实践，才给现在的前端生态提供了无数多的可能。</li>
+</ol>
+<p>最后用一首诗结束本篇文章吧：</p>
+<blockquote>
+<p>今人不见古时月，今月曾经照古人。</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/">#人类高质量npm包赏析</a>
+      
+        <a href="/tags/IScroll/">#IScroll</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>古早前端程序员是如何构建项目的</div>
+      <div>http://example.com/2022/07/28/古早前端程序员是如何构建项目的/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月28日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年8月26日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/03/%E6%8E%A2%E7%A9%B6-git-flow/" title="探究 git-flow">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">探究 git-flow</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/" title="人类高质量npm包赏析之react-error-boundary">
+                        <span class="hidden-mobile">人类高质量npm包赏析之react-error-boundary</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
