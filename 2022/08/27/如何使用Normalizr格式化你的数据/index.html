@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/assets/img/postBanner/normalizr_banner.jpeg">
 <meta property="article:published_time" content="2022-08-27T00:58:43.000Z">
-<meta property="article:modified_time" content="2022-08-26T18:02:26.358Z">
+<meta property="article:modified_time" content="2022-08-28T15:36:51.254Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="normalizr">
 <meta name="twitter:card" content="summary_large_image">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          415 字
+          1.6k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          4 分钟
+          14 分钟
         
       </span>
     
@@ -276,9 +276,26 @@
               <div class="markdown-body">
                 
                 <h2 id="我们为何选择-Normalizr"><a href="#我们为何选择-Normalizr" class="headerlink" title="我们为何选择 Normalizr"></a>我们为何选择 Normalizr</h2><p>作为前端开发，我们难免经常会和复杂甚至混乱的接口数据结构打交道。这个现象在 ToB 端项目开发中尤为明显。虽然在开发阶段，前后端可以共同决定接口的数据结构，但往往实际情况是，即使约定好了固定的数据结构，依然无法完全满足前端的业务或数据逻辑。这并不是前后端任何一方的问题，而是前后端的开发角度不同，并且过于复杂的业务靠固定的数据结构是无法支撑的。</p>
-<p>在之前遇到这种问题，前端往往是通过复杂的遍历、合并、分离的操作，将接口返回的数据加工成为符合预期的数据类型。这样做确实可以解决问题。但就像上面提到的，在 toB 端可能会有数以百计的接口。如果还是通过这样的方式去格式化，抛开带来的心智负担不说，业务逻辑中嵌入高度耦合的格式化代码会使项目日渐臃肿，更可怕的是，往后在迭代中，接口发生变动，很有可能对应的格式化代码也要重新进行开发！</p>
+<p>在之前遇到这种问题，前端往往是通过复杂的遍历、合并、分离的操作，将接口返回的数据加工成为符合预期的数据类型。这样做确实可以解决问题。但就像上面提到的，在 toB 端可能会有数以百计的接口。如果还是通过这样的方式去格式化，抛开带来的心智负担不说，业务逻辑中嵌入高度耦合的格式化代码会使项目日渐臃肿，更可怕的是，往后在迭代中，当接口发生结构性变动，很有可能对应前端的格式化代码也要重新进行开发！</p>
 <p>这时候便轮到主角出现了，它就是 Normalizr。</p>
-<h2 id="Normalizr-可以为我们带来什么"><a href="#Normalizr-可以为我们带来什么" class="headerlink" title="Normalizr 可以为我们带来什么"></a>Normalizr 可以为我们带来什么</h2>
+<h2 id="Normalizr-可以为我们带来什么"><a href="#Normalizr-可以为我们带来什么" class="headerlink" title="Normalizr 可以为我们带来什么"></a>Normalizr 可以为我们带来什么</h2><p>Normalizr 的出现解决了上述问题。我们通过简单的方式规定数据模型并交付给 Normalizr，Normalizr 在其内部使用了一些“魔法”后，将规范好的数据返回给了我们。很明显，这一流程使得我们不再需要将注意力放在如何对接口数据进行加工处理上，而是直接拿到了符合预期的数据，就像是接口直接返回的一样。</p>
+<h2 id="Talk-is-cheap-Show-me-your-code"><a href="#Talk-is-cheap-Show-me-your-code" class="headerlink" title="Talk is cheap. Show me your code"></a>Talk is cheap. Show me your code</h2><p>上面花费了一些时间介绍了 Normalizr 的使用背景，接下来废话少说，我们通过一个数据向你展示 Normalizr 的强大能力。</p>
+<h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><p>设想一下，你正在开发一个 Wiki 页面组评论的功能。因为业务逻辑是要基于整个页面组所有页面的评论进行处理，因此后台提供了一个包含所有页面的所有评论列表接口。</p>
+<blockquote>
+<p>该例子目的是创建一个极为极端的背景用于举例，我相信现实中肯定也存在这类需求，但我更建议你可以勇敢的去和 PM Battle，因为即使 Normalizr 的魔法可以帮助你高性能，简单的格式化数据。但这也并不是对性能无损耗的。</p>
+</blockquote>
+<p>抛去一些无关字段，其关键的数据结构大致如下所示：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;pages&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>    <span class="hljs-punctuation">&#123;</span><br>      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;xjasfashfqweqw&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;author&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;jiaao.mario&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;hello Normalizr&quot;</span><span class="hljs-punctuation">,</span><br>      <span class="hljs-attr">&quot;comments&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>          <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;aasjwqeiasiod&quot;</span><span class="hljs-punctuation">,</span><br>          <span class="hljs-attr">&quot;comment_user_info&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;uuid&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;11279312&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;user_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;bob&quot;</span><br>          <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><br>      <span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><br>  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;page_count&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">391</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>为了便于后面的演示，作者通过 Mock 工具将上面的模型构建出来一个真实的数据。</p>
+<blockquote>
+<p>关于演示数据的构造，现社区内已经有了大量的 Mock 工具去构建，如<code>mock.js</code>、<code>moco-runner</code>等等。作者使用的是一个在线的 Mock 工具，规则简单，推荐给你：<a target="_blank" rel="noopener" href="https://json-generator.com/">json-generator</a></p>
+</blockquote>
+<p>好了，不管使用了什么方式，此时我们已经有了接口的返回数据，接下来我们就可以专心根据需求进行开发工作了。</p>
+<h3 id="场景-1"><a href="#场景-1" class="headerlink" title="场景 1"></a>场景 1</h3><p>首先迎来第一个需求：获取所有 page 的作者 id。</p>
+<p>这个需求通过自定义格式化实现起来并不复杂，我们只需要一次的循环便可以获取到所有 page 的作者 id：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">const</span> result = data.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">d</span> =&gt;</span> d.<span class="hljs-property">author</span>.<span class="hljs-property">uuid</span>);<br></code></pre></td></tr></table></figure>
+
                 
               </div>
             
@@ -321,7 +338,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年8月26日</div>
+          <div>2022年8月28日</div>
         </div>
       
       <div class="license-meta-item">
