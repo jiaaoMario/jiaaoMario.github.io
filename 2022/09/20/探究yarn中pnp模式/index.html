@@ -16,25 +16,25 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。   这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。 目录 人类高质量 npm 包赏析之 react-error-boundary">
+    <meta name="description" content="随着前端生态链的快速发展，尤其是 Node 的诞生，前端包管理器逐渐成为了我们日常开发中必不可少的工具。回忆一下，可能大多数人第一个接触包管理器应该是 Npm 吧，随着开发场景的增加，npm 已经不再可以满足我们，这时候 yarn 便出现在了我们的面前。yarn 提供了 workspace 等能力。然而，无论是 npm 还是 yarn，对于依赖的管理都存在很大的问题：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="人类高质量npm包赏析">
-<meta property="og:url" content="http://example.com/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/index.html">
+<meta property="og:title" content="探究yarn中pnp模式">
+<meta property="og:url" content="http://example.com/2022/09/20/%E6%8E%A2%E7%A9%B6yarn%E4%B8%ADpnp%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Mario.ma的个人博客">
-<meta property="og:description" content="前言曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。   这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。 目录 人类高质量 npm 包赏析之 react-error-boundary">
+<meta property="og:description" content="随着前端生态链的快速发展，尤其是 Node 的诞生，前端包管理器逐渐成为了我们日常开发中必不可少的工具。回忆一下，可能大多数人第一个接触包管理器应该是 Npm 吧，随着开发场景的增加，npm 已经不再可以满足我们，这时候 yarn 便出现在了我们的面前。yarn 提供了 workspace 等能力。然而，无论是 npm 还是 yarn，对于依赖的管理都存在很大的问题：">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/assets/img/postBanner/miracle_banner.jpg">
-<meta property="article:published_time" content="2022-07-16T01:18:45.000Z">
-<meta property="article:modified_time" content="2022-09-20T15:47:01.201Z">
+<meta property="og:image" content="http://example.com/2022/09/20/%E6%8E%A2%E7%A9%B6yarn%E4%B8%ADpnp%E6%A8%A1%E5%BC%8F/heaviest-objects-in-the-universe.jpeg">
+<meta property="article:published_time" content="2022-09-20T21:54:33.000Z">
+<meta property="article:modified_time" content="2022-09-20T15:47:01.209Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="源码解析">
-<meta property="article:tag" content="人类高质量npm包赏析">
+<meta property="article:tag" content="yarn">
+<meta property="article:tag" content="PnP模式">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/assets/img/postBanner/miracle_banner.jpg">
+<meta name="twitter:image" content="http://example.com/2022/09/20/%E6%8E%A2%E7%A9%B6yarn%E4%B8%ADpnp%E6%A8%A1%E5%BC%8F/heaviest-objects-in-the-universe.jpeg">
   
   
   
-  <title>人类高质量npm包赏析 - Mario.ma的个人博客</title>
+  <title>探究yarn中pnp模式 - Mario.ma的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="人类高质量npm包赏析"></span>
+            <span id="subtitle" data-typed-text="探究yarn中pnp模式"></span>
           
         </div>
 
@@ -210,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-16 01:18" pubdate>
-          2022年7月16日 凌晨
+        <time datetime="2022-09-20 21:54" pubdate>
+          2022年9月20日 晚上
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          190 字
+          172 字
         
       </span>
     
@@ -271,18 +271,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">人类高质量npm包赏析</h1>
+            <h1 style="display: none">探究yarn中pnp模式</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>曾有幸与一位业内大佬传道受业解惑，当聊到目前前端社区造轮子的风气时，大佬云淡风轻的说了一句，百分之九十五的人都是在瞎搞，先看完二三十个开源的项目再谈造轮子。</p>
-<img src="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/cai.jpeg" srcset="/img/loading.gif" lazyload class="" title="菜鸡">
-
-<p>这句话便深深地刻在那时年幼的我心上，虽然工作几年后，也开源造了一些轮子，但每当技术遇到瓶颈的时候，还是会想起大佬的教导，沉下心来，夯实基础方可成就大业。</p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://jiaaomario.github.io/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary">人类高质量 npm 包赏析之 react-error-boundary</a></li>
-</ul>
+                <p>随着前端生态链的快速发展，尤其是 Node 的诞生，前端包管理器逐渐成为了我们日常开发中必不可少的工具。回忆一下，可能大多数人第一个接触包管理器应该是 Npm 吧，随着开发场景的增加，npm 已经不再可以满足我们，这时候 yarn 便出现在了我们的面前。yarn 提供了 workspace 等能力。然而，无论是 npm 还是 yarn，对于依赖的管理都存在很大的问题：</p>
+<img src="/2022/09/20/%E6%8E%A2%E7%A9%B6yarn%E4%B8%ADpnp%E6%A8%A1%E5%BC%8F/heaviest-objects-in-the-universe.jpeg" srcset="/img/loading.gif" lazyload class="" title="heaviest-objects-in-the-universe">
 
                 
               </div>
@@ -295,9 +290,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">#源码解析</a>
+        <a href="/tags/yarn/">#yarn</a>
       
-        <a href="/tags/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90/">#人类高质量npm包赏析</a>
+        <a href="/tags/PnP%E6%A8%A1%E5%BC%8F/">#PnP模式</a>
       
     </div>
   
@@ -309,8 +304,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>人类高质量npm包赏析</div>
-      <div>http://example.com/2022/07/16/人类高质量npm包赏析/</div>
+      <div>探究yarn中pnp模式</div>
+      <div>http://example.com/2022/09/20/探究yarn中pnp模式/</div>
     </div>
     <div class="license-meta">
       
@@ -322,7 +317,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月16日</div>
+          <div>2022年9月20日</div>
         </div>
       
       
@@ -357,18 +352,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/16/%E4%BA%BA%E7%B1%BB%E9%AB%98%E8%B4%A8%E9%87%8Fnpm%E5%8C%85%E8%B5%8F%E6%9E%90%E4%B9%8Breact-error-boundary/" title="人类高质量npm包赏析之react-error-boundary">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">人类高质量npm包赏析之react-error-boundary</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="Redux源码解析">
-                        <span class="hidden-mobile">Redux源码解析</span>
+                      <a href="/2022/09/12/%E5%8D%8F%E5%90%8C%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E5%85%89%E6%A0%87%E4%B8%8E%E9%80%89%E5%8C%BA/" title="协同文档中的光标与选区">
+                        <span class="hidden-mobile">协同文档中的光标与选区</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

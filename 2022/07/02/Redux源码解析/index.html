@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/assets/img/postBanner/redux-logo-landscape.png">
 <meta property="article:published_time" content="2022-07-02T20:31:38.000Z">
-<meta property="article:modified_time" content="2022-08-28T15:36:51.234Z">
+<meta property="article:modified_time" content="2022-09-20T15:47:01.181Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Redux">
 <meta property="article:tag" content="React">
@@ -281,14 +281,17 @@
                 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Redux 是最为流行的 JavaScript 状态管理容器之一，其具有单一数据源、状态树数据只读、通过 Reducers 纯函数变更等特性使得运行时状态具有可预测的特性。本篇文章我们将深入 Redux 源码，通过学习其内部实现，从而加深我们对 Redux 的理解，便于未来工作中的更好使用。在阅读本文章前，建议读者对 Redux 有一定的使用经验，如对 Redux 较为陌生，可移步<a target="_blank" rel="noopener" href="https://redux.js.org/">redux 官方文档</a>。</p>
 <h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h2><p>首先，将 Redux 源码拉取至本地，本项目接下来的所有源码分析都会以 Redux 项目为基础。</p>
 <h2 id="2-开始"><a href="#2-开始" class="headerlink" title="2. 开始"></a>2. 开始</h2><p>整体来讲，Redux 源码目录架构是最流行的 JavaScript 包架构。当我们拿到这样一个目录架构后，不需要上来便看代码，可以通过 package.json 对项目不同构建模式声明确认入口。</p>
-<p><img src="/pkg.png" srcset="/img/loading.gif" lazyload alt="package.json"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/pkg.png" srcset="/img/loading.gif" lazyload class="" title="package.json">
+
 <p>接下来我们将从<code>/src/index.ts</code>作为入口进行学习。</p>
 <h2 id="3-源码分析"><a href="#3-源码分析" class="headerlink" title="3. 源码分析"></a>3. 源码分析</h2><h3 id="3-1-入口文件-index"><a href="#3-1-入口文件-index" class="headerlink" title="3-1 入口文件 index"></a>3-1 入口文件 index</h3><p>index.ts 文件作为 Redux 架构的出口，其主要功能主要是对外暴露 Redux 核心 api、类型声明以及运行时的环境判断。</p>
 <p>在 index.ts 代码中，可以看到，redux 声明了一个无内部实现的方法：isCrushed，根据函数名便可猜测出，该方法是用来检测当前运行代码是否经过压缩处理。</p>
 <p>原理是：当我们的代码混淆工具对代码进行压缩时，往往会对函数名进行混淆，根据这一背景，我们便可以通过对比函数名和预设函数名字符串，判断是否经过压缩混淆了。</p>
-<p><img src="/isCrushed.png" srcset="/img/loading.gif" lazyload alt="isCrushed"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/isCrushed.png" srcset="/img/loading.gif" lazyload class="" title="isCrushed">
+
 <p>好了，让我们言归正传，在这里主要关注对外暴露的 Redux Apis:</p>
-<p><img src="/export_apis.png" srcset="/img/loading.gif" lazyload alt="index.ts文件中对外暴露的核心api"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/export_apis.png" srcset="/img/loading.gif" lazyload class="" title="index.ts文件中对外暴露的核心api">
+
 <h3 id="3-2-createStore"><a href="#3-2-createStore" class="headerlink" title="3-2 createStore"></a>3-2 createStore</h3><p>在 createStore api 中，我们可以创建一个 Redux store 用以存放应用中的全部 state。createStore 的核心实现代码位于<code>/src/createStore.ts</code> 文件中；</p>
 <p>在 TypeScript 项目中，我们可以首先通过函数的类型声明定义进行初步的了解。对 createStore 函数而言，定义了四个函数重载，最大的不同在于每一个重载支持接受不同的参数：分别是：</p>
 <ol>
@@ -297,7 +300,8 @@
 <li>enhancer：State Enhancer 是一个可选项，它是一个组合 store creator 的高阶函数，返回一个新的强化过的 store creator。具体实现和使用我们在后续会进行讨论。</li>
 </ol>
 <p>在 createStore 方法体中，由于支持函数的重载，所以在方法的前半段，主要对函数参数进行判断和处理。在数据处理完成后，可以看到，createStore 走向了两个逻辑分支，当 enhancer 参数正常传入的情况下，将 createStore 作为参数传入 Enhancer 进行功能扩展后，返回新的 createStore 再次进行后续的处理：</p>
-<p><img src="/createstore_enhancer.png" srcset="/img/loading.gif" lazyload alt="createstore_enhancer"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/createstore_enhancer.png" srcset="/img/loading.gif" lazyload class="" title="createstore_enhancer">
+
 <p>因为传入的是 Redux 内部定义的 action，因此在进入 Reducer 方法中，最后均会返回 defaultState，实现了 State 的舒适化。</p>
 <p>最后，我们创建 Store 对象，并将 <code>dispatch</code>、<code>subscribe</code>、<code>getState</code>、<code>replaceReducer</code>、<code>$$observable</code> 进行挂载并返回。至此，createStore 内部大致执行流程结束。接下来，我们将注意力放到上面提到的暴露方法以及 createStore 内部重要的功能函数上。</p>
 <h4 id="3-2-1-ensureCanMutateNextListeners"><a href="#3-2-1-ensureCanMutateNextListeners" class="headerlink" title="3-2.1 ensureCanMutateNextListeners"></a>3-2.1 ensureCanMutateNextListeners</h4><p>ensureCanMutateNextListeners 函数的内部实现非常简单，目的在于对监听队列的一次浅复制，从而实现在 subscribe 内部嵌套 subscribe 时，不会出现嵌套订阅方法和外部订阅方法同时触发的问题。</p>
@@ -307,11 +311,13 @@
 <h5 id="3-2-3-1-unsubscribe"><a href="#3-2-3-1-unsubscribe" class="headerlink" title="3-2.3-1 unsubscribe"></a>3-2.3-1 unsubscribe</h5><p>unsubscribe 用于解除其源 subscribe 中注册的监听函数。</p>
 <h4 id="3-2-4-dispatch"><a href="#3-2-4-dispatch" class="headerlink" title="3-2.4 dispatch"></a>3-2.4 dispatch</h4><p>dispatch 是触发 state 变更的唯一途径，是 Redux 中最常用到的 Api 之一。dispatch 接收一个 action 描述，在 dispath 执行过程中，首先会将全局 isDispatching 锁置为 True，这样，在其他 Redux 方法中，检测到 isDispatching 锁定后，会禁止 state 的读写。接着会将 action 透传至 Reducer 中，进行 state 的变更操作，变更操作完成后，会将 Redux 读写解锁。为了每一次 dispatch 后，subscribe 均会相应，需要将 listeners 中监听函数依次取出并调用，一切操作完成后，返回本次的 action 对象。</p>
 <h4 id="3-2-5-replaceReducer"><a href="#3-2-5-replaceReducer" class="headerlink" title="3-2.5 replaceReducer"></a>3-2.5 replaceReducer</h4><p>replaceReducer 相对其他方法来说比较陌生，虽然在 Store 中暴露出来，但其本身是一个底层的 Redux Api。replaceReducer 的目的是在 createStore 生成 Redux Store 后，替换原有的 Reducer。其内部实现也较为简单，就是之前初始化的 currentReducer 替换为将新传入的 Reducer 方法，这样在后续的 dispatch 中，调用的均是替换后的 newReducer 了。值得注意的是，在 newReducer 替换完成后，Redux 内部手动调用了 dispatch 方法：</p>
-<p><img src="/replaceReducer.png" srcset="/img/loading.gif" lazyload alt="replaceReducer"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/replaceReducer.png" srcset="/img/loading.gif" lazyload class="" title="replaceReducer">
+
 <p>和上述 Dispatch.INIT 类似，当我们 dispatch 时，对 currentState 进行一次同步作业。最后，replaceReducer 返回已替换过 Reducer 的 Store。</p>
 <h4 id="3-2-6-observable"><a href="#3-2-6-observable" class="headerlink" title="3-2.6 observable"></a>3-2.6 observable</h4><p>随着这里逻辑上很简单，但还是有一些知识点可以进行拓展的，因此卖个关子，敬请期待后续独立的文章解析。</p>
 <h3 id="3-3-compose"><a href="#3-3-compose" class="headerlink" title="3-3 compose"></a>3-3 compose</h3><p>从 TypeScript 类型声明中来看，compose 是一个一或多参数组合的工具函数。用过 lodash 的同学可能使用过 flow 或者 flowRight，flowRight 便是和 compose 相同的操作，接收多个函数，并从右向左依次执行，下一个函数会将上一个函数 return 的数据作为入参处理，直至最后一个函数完成并返回最终结果。让我们回归源码：</p>
-<p><img src="/compose.png" srcset="/img/loading.gif" lazyload alt="compose"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/compose.png" srcset="/img/loading.gif" lazyload class="" title="compose">
+
 <p>Redux 分别对于 0 入参、单独入参、多入参分别进行了不同的逻辑拆分。在多参数的情况下，通过 reduce 对函数进行从右到左的传参和执行，从而实现了类似下面的执行结构：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Javascript"><span class="hljs-title function_">a</span>(<span class="hljs-title function_">b</span>(<span class="hljs-title function_">c</span>(<span class="hljs-title function_">d</span>(<span class="hljs-number">1</span>))));<br></code></pre></td></tr></table></figure>
 
@@ -319,15 +325,19 @@
 <p>combineReducers 方法中，接收一个由子 reducer 组成的 map，首先 combineReducers 通过遍历的方式检查每一个 reducer 的类型是否合规，在将合规的 reducer 复制到 finalReducers 上后，会将 finalReducers 作为参数传入至内部的 <code>assertReducerShape</code> 方法中。同样的 assertReducerShape 也是对 reducer 进行合规检查，但 assertReducerShape 检查的重点是，传入的子 reducer 是否按照 Redux 对于 Reducer 的最佳开发标准实现的，即：<strong>传入未匹配到的 Action，返回默认 State、永远不可返回 undefined、如果传入的 state 就是 undefined，一定要返回对应 reducer 的初始 state。</strong>。如果未按照上述标准创建 Reducer，则会在返回的 combination 函数执行时，抛出对应的 Error。</p>
 <p>combineReducers 返回的 combination 函数，其实就是一个整合了所有的子 Reducer 的完整 Reducer。他的参数和 Reducer 一致，区别在于，任意的 Reducer 参数均可传入进行对应的操作。combination 中维护了 <code>hasChanged</code> 及 <code>nextState</code> 作为标志位，hasChanged 的作用是作为数据变更的标志位，nextState 则存储变更后的数据，用于计算 hasChanged。接着，将 Reducers 进行遍历，依次将 state 和 action 传入 reducer 中，返回的新 reducer State 作为新的 State 存储至 nextState。后续可以通过 nextState 中新鲜值，与传入的 state 进行简单对比判断数据是否发生变更，如果 hasChanged 为 True,则返回 Fresh State，否则返回传入的 state。</p>
 <h3 id="3-4-bindActionCreators"><a href="#3-4-bindActionCreators" class="headerlink" title="3-4 bindActionCreators"></a>3-4 bindActionCreators</h3><p>把一个 value 为不同 action creator 的对象，转成拥有同名 key 的对象。同时使用 dispatch 对每个 action creator 进行包装，以便可以直接调用它们。bindActionCreators 常用于不想给予 dispatch 能力但希望对 Redux State 进行变更的场景。首先，Redux 针对单独的 Creator 封装了操作函数：</p>
-<p><img src="/bindActionCreator.png" srcset="/img/loading.gif" lazyload alt="bindActionCreator"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/bindActionCreator.png" srcset="/img/loading.gif" lazyload class="" title="bindActionCreator">
+
 <p>bindActionCreator 接收一个 action 生产者，以及 dispatch。在函数体内部返回一个新的函数，函数接收参数可以用于 action 额外的 payload 值，返回值是 dispatch 创建好的 action。由此可见 bindActionCreator 目的明确，并且实现简单。而 bindActionCreators 其实也是通过调用 bindActionCreator 实现的。</p>
 <p>bindActionCreators 同样使用重载，兼容多种传参实现。当传入值为函数时，视为传入了一个 action 创造者，则符合 bindActionCreator 入参，直接交付 bindActionCreator 函数处理即可。</p>
 <p>倘若 actionCreators 为 Map 类型，则视为传入了一组 action Creator，此时，bindActionCreators 会通过<code>for in</code>进行遍历，如果每一个 action Creator 为函数，则依次将 value 与 dispatch 作为参数传入 bindActionCreator 中，并将返回值保存传入时的结构整体返回:</p>
-<p><img src="/bindActionCreators.png" srcset="/img/loading.gif" lazyload alt="bindActionCreators"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/bindActionCreators.png" srcset="/img/loading.gif" lazyload class="" title="bindActionCreators">
+
 <h3 id="3-5-applyMiddleware"><a href="#3-5-applyMiddleware" class="headerlink" title="3-5 applyMiddleware"></a>3-5 applyMiddleware</h3><p>在 Redux 中，Middleware 类似 Koa 中的中间件洋葱模型，自定义功能的 middleware 可以在无侵入性的模式下扩展 Redux，并支持多个 Middleware 链式组合。类似于异步 Dispatch 的扩展 redux-thunk，都是采用 applyMiddleware 进行扩展的。applyMiddleware 支持接收一个或多个中间件插件：</p>
-<p><img src="/middlewares.png" srcset="/img/loading.gif" lazyload alt="middlewares"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/middlewares.png" srcset="/img/loading.gif" lazyload class="" title="middlewares">
+
 <p>让我们回忆一下，Reudx 源码在 createStore 中，如果传入 enhancer，则会向 enhancer 中传入 createStore，并向 enhancer 返回的函数中传入 reducer、preloadedState，</p>
-<p><img src="/enhancer.png" srcset="/img/loading.gif" lazyload alt="createStore中对enhancer的处理逻辑"></p>
+<img src="/2022/07/02/Redux%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/enhancer.png" srcset="/img/loading.gif" lazyload class="" title="createStore中对enhancer的处理逻辑">
+
 <p>applyMiddleware 会根据上述这些参数，创建 Store，构造 拥有 getState、dispatch 能力的 middlewareAPI。经过上述的准备工作后，便可以进行 applyMiddleware 核心逻辑，通过对 middlewares 进行遍历，其注入 middlewareAPI 并执行，获取 chains，并通过 compose Api 依次执行 chain 获取最终加密后的值，完成对 Redux Dispath 的扩展。</p>
 <h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4 总结"></a>4 总结</h2><p>到此为止，本篇文章介绍了 Redux 的主要 Api 实现逻辑和原理。贯穿整篇文章，我们深刻的意识到，Redux 的核心思想无非是，通过 Reducer，Action 贯穿单数据流向，并通过 MiddleWares 进行非侵入性的扩展。希望看完本篇文章，可以使您对 Redux 有更深入的了解。</p>
 
@@ -379,7 +389,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年8月28日</div>
+          <div>2022年9月20日</div>
         </div>
       
       <div class="license-meta-item">
