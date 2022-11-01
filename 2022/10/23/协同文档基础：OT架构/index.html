@@ -16,16 +16,18 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="协同文档的前世今生">
+    <meta name="description" content="协同文档是一个异常庞大的技术体系，而其中，最核心的就是要解决多个用户同时编辑的多端冲突问题。在目前的社区中，有以下几种较为流行的解决方案：  Diff-PatchDiff-Patch 算法的本质类似于 git 的 diff，将对于文档的修改选择权交予给用户。当遇到同时修改同一处时，需要用户手动操作修改结果。 使用一致性算法使用一致性算法底层原理很简单，目的是希望通过一系列的算法处理，在多个客户端生">
 <meta property="og:type" content="article">
 <meta property="og:title" content="协同文档基础：OT架构">
 <meta property="og:url" content="http://example.com/2022/10/23/%E5%8D%8F%E5%90%8C%E6%96%87%E6%A1%A3%E5%9F%BA%E7%A1%80%EF%BC%9AOT%E6%9E%B6%E6%9E%84/index.html">
 <meta property="og:site_name" content="Mario.ma的个人博客">
-<meta property="og:description" content="协同文档的前世今生">
+<meta property="og:description" content="协同文档是一个异常庞大的技术体系，而其中，最核心的就是要解决多个用户同时编辑的多端冲突问题。在目前的社区中，有以下几种较为流行的解决方案：  Diff-PatchDiff-Patch 算法的本质类似于 git 的 diff，将对于文档的修改选择权交予给用户。当遇到同时修改同一处时，需要用户手动操作修改结果。 使用一致性算法使用一致性算法底层原理很简单，目的是希望通过一系列的算法处理，在多个客户端生">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-23T23:47:49.000Z">
-<meta property="article:modified_time" content="2022-10-24T13:06:18.071Z">
+<meta property="article:modified_time" content="2022-11-01T16:26:16.142Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="协同文档">
+<meta property="article:tag" content="OT算法">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -218,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9 字
+          278 字
         
       </span>
     
@@ -229,7 +231,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -272,7 +274,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="协同文档的前世今生"><a href="#协同文档的前世今生" class="headerlink" title="协同文档的前世今生"></a>协同文档的前世今生</h1>
+                <p>协同文档是一个异常庞大的技术体系，而其中，最核心的就是要解决多个用户同时编辑的多端冲突问题。在目前的社区中，有以下几种较为流行的解决方案：</p>
+<ul>
+<li>Diff-Patch<br>Diff-Patch 算法的本质类似于 git 的 diff，将对于文档的修改选择权交予给用户。当遇到同时修改同一处时，需要用户手动操作修改结果。</li>
+<li>使用一致性算法<br>使用一致性算法底层原理很简单，目的是希望通过一系列的算法处理，在多个客户端生成一致性的操作结果，这其中使用的最为广泛的算法是 CRDT 和 OT 算法。</li>
+</ul>
+<p>本篇文章，我们将注意力主要放在 OT 算法上，探究 OT 算法的实现原理，从而对协同文档的底层有更深入的了解。</p>
+
                 
               </div>
             
@@ -280,6 +288,15 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8D%8F%E5%90%8C%E6%96%87%E6%A1%A3/">#协同文档</a>
+      
+        <a href="/tags/OT%E7%AE%97%E6%B3%95/">#OT算法</a>
+      
+    </div>
   
 </div>
 
@@ -308,7 +325,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年10月24日</div>
+          <div>2022年11月1日</div>
         </div>
       
       <div class="license-meta-item">
