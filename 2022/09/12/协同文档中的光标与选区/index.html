@@ -16,16 +16,16 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最近正在做公司协同文档的重构开发工作，上一次做富文本开发已经是两年多前了，因此像选区与光标这一类富文本开发核心场景而又有些繁杂的知识点，已经隐约的有些模糊了。正好趁着中秋假期的闲暇时光，希望温故而知新。 在我司新架构的协同文档中，为了解决系统光标的局限性，采用了模拟光标的架构实现，这类场景专业性较强，就不在本文中赘述了，本文我们将重点讨论的是在可编辑组件以及contentEditable下的光标与">
+    <meta name="description" content="最近正在做公司协同文档的重构开发工作，上一次做富文本开发已经是两年多前了，因此像选区与光标这一类富文本开发核心场景而又有些繁杂的知识点，已经隐约的有些模糊了。正好趁着中秋假期的闲暇时光，希望温故而知新。 在我司新架构的协同文档中，为解决系统光标的局限性，采用了模拟光标的技术方式实现。这类场景专业性较强，就不在本文中赘述了，本文我们将重点讨论的是在浏览器原生富文本元素以及可编辑元素下的光标与选区操作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="协同文档中的光标与选区">
 <meta property="og:url" content="http://example.com/2022/09/12/%E5%8D%8F%E5%90%8C%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E5%85%89%E6%A0%87%E4%B8%8E%E9%80%89%E5%8C%BA/index.html">
 <meta property="og:site_name" content="Mario.ma的个人博客">
-<meta property="og:description" content="最近正在做公司协同文档的重构开发工作，上一次做富文本开发已经是两年多前了，因此像选区与光标这一类富文本开发核心场景而又有些繁杂的知识点，已经隐约的有些模糊了。正好趁着中秋假期的闲暇时光，希望温故而知新。 在我司新架构的协同文档中，为了解决系统光标的局限性，采用了模拟光标的架构实现，这类场景专业性较强，就不在本文中赘述了，本文我们将重点讨论的是在可编辑组件以及contentEditable下的光标与">
+<meta property="og:description" content="最近正在做公司协同文档的重构开发工作，上一次做富文本开发已经是两年多前了，因此像选区与光标这一类富文本开发核心场景而又有些繁杂的知识点，已经隐约的有些模糊了。正好趁着中秋假期的闲暇时光，希望温故而知新。 在我司新架构的协同文档中，为解决系统光标的局限性，采用了模拟光标的技术方式实现。这类场景专业性较强，就不在本文中赘述了，本文我们将重点讨论的是在浏览器原生富文本元素以及可编辑元素下的光标与选区操作">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/assets/img/postBanner/selection_banner.jpg">
 <meta property="article:published_time" content="2022-09-12T21:48:31.000Z">
-<meta property="article:modified_time" content="2022-11-03T15:54:14.841Z">
+<meta property="article:modified_time" content="2022-11-11T05:26:51.829Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="富文本编辑器">
 <meta name="twitter:card" content="summary_large_image">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          215 字
+          211 字
         
       </span>
     
@@ -276,7 +276,7 @@
               <div class="markdown-body">
                 
                 <p>最近正在做公司协同文档的重构开发工作，上一次做富文本开发已经是两年多前了，因此像选区与光标这一类富文本开发核心场景而又有些繁杂的知识点，已经隐约的有些模糊了。正好趁着中秋假期的闲暇时光，希望温故而知新。</p>
-<p>在我司新架构的协同文档中，为了解决系统光标的局限性，采用了模拟光标的架构实现，这类场景专业性较强，就不在本文中赘述了，本文我们将重点讨论的是在可编辑组件以及<code>contentEditable</code>下的光标与选区操作。</p>
+<p>在我司新架构的协同文档中，为解决系统光标的局限性，采用了模拟光标的技术方式实现。这类场景专业性较强，就不在本文中赘述了，本文我们将重点讨论的是在浏览器原生富文本元素以及可编辑元素下的光标与选区操作。</p>
 <h2 id="可编辑组件场景下的操作"><a href="#可编辑组件场景下的操作" class="headerlink" title="可编辑组件场景下的操作"></a>可编辑组件场景下的操作</h2>
                 
               </div>
@@ -320,7 +320,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年11月3日</div>
+          <div>2022年11月11日</div>
         </div>
       
       <div class="license-meta-item">
