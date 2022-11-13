@@ -16,16 +16,16 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最近正在做公司协同文档的重构开发工作，上一次做富文本开发已经是两年多前了，因此像选区与光标这一类富文本开发核心场景而又有些繁杂的知识点，已经隐约的有些模糊了。正好趁着中秋假期的闲暇时光，希望温故而知新。 在我司新架构的协同文档中，为解决系统光标的局限性，采用了模拟光标的技术方式实现。这类场景专业性较强，就不在本文中赘述了，本篇文章我们将重点讨论的是在浏览器原生富文本元素以及可编辑元素下的光标与选区">
+    <meta name="description" content="前言最近正在做公司协同文档的重构工作，上一个富文本项目已经是两年多前了，因此像选区与光标这一类富文本开发核心而又有些繁杂的知识点已经有些模糊了。正好趁着假期的闲暇时光，梳理出知识点，希望可以温故而知新。 在我司新的协同文档架构中，为解决系统光标的局限性，采用了模拟光标的技术方式实现。这类场景实现较为复杂，就不在本文中赘述了。本篇文章我们将重点讨论的是在浏览器原生富文本元素以及可编辑元素下的光标与选">
 <meta property="og:type" content="article">
 <meta property="og:title" content="协同文档中的光标与选区">
 <meta property="og:url" content="http://example.com/2022/09/12/%E5%8D%8F%E5%90%8C%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E5%85%89%E6%A0%87%E4%B8%8E%E9%80%89%E5%8C%BA/index.html">
 <meta property="og:site_name" content="Mario.ma的个人博客">
-<meta property="og:description" content="最近正在做公司协同文档的重构开发工作，上一次做富文本开发已经是两年多前了，因此像选区与光标这一类富文本开发核心场景而又有些繁杂的知识点，已经隐约的有些模糊了。正好趁着中秋假期的闲暇时光，希望温故而知新。 在我司新架构的协同文档中，为解决系统光标的局限性，采用了模拟光标的技术方式实现。这类场景专业性较强，就不在本文中赘述了，本篇文章我们将重点讨论的是在浏览器原生富文本元素以及可编辑元素下的光标与选区">
+<meta property="og:description" content="前言最近正在做公司协同文档的重构工作，上一个富文本项目已经是两年多前了，因此像选区与光标这一类富文本开发核心而又有些繁杂的知识点已经有些模糊了。正好趁着假期的闲暇时光，梳理出知识点，希望可以温故而知新。 在我司新的协同文档架构中，为解决系统光标的局限性，采用了模拟光标的技术方式实现。这类场景实现较为复杂，就不在本文中赘述了。本篇文章我们将重点讨论的是在浏览器原生富文本元素以及可编辑元素下的光标与选">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/assets/img/postBanner/selection_banner.jpg">
 <meta property="article:published_time" content="2022-09-12T21:48:31.000Z">
-<meta property="article:modified_time" content="2022-11-12T15:34:01.640Z">
+<meta property="article:modified_time" content="2022-11-13T15:33:34.800Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="富文本编辑器">
 <meta name="twitter:card" content="summary_large_image">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          240 字
+          408 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -275,9 +275,13 @@
             
               <div class="markdown-body">
                 
-                <p>最近正在做公司协同文档的重构开发工作，上一次做富文本开发已经是两年多前了，因此像选区与光标这一类富文本开发核心场景而又有些繁杂的知识点，已经隐约的有些模糊了。正好趁着中秋假期的闲暇时光，希望温故而知新。</p>
-<p>在我司新架构的协同文档中，为解决系统光标的局限性，采用了模拟光标的技术方式实现。这类场景专业性较强，就不在本文中赘述了，本篇文章我们将重点讨论的是在浏览器原生富文本元素以及可编辑元素下的光标与选区操作。</p>
-<p>在开始学习之前，我们需要首先掌握光标选区的基础知识点。</p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近正在做公司协同文档的重构工作，上一个富文本项目已经是两年多前了，因此像选区与光标这一类富文本开发核心而又有些繁杂的知识点已经有些模糊了。正好趁着假期的闲暇时光，梳理出知识点，希望可以温故而知新。</p>
+<p>在我司新的协同文档架构中，为解决系统光标的局限性，采用了模拟光标的技术方式实现。这类场景实现较为复杂，就不在本文中赘述了。本篇文章我们将重点讨论的是在浏览器原生富文本元素以及可编辑元素下的光标与选区操作。</p>
+<p>在开始学习之前，让我们首先复习一下光标、选区的基础知识点。</p>
+<h2 id="Selection-与-Range"><a href="#Selection-与-Range" class="headerlink" title="Selection 与 Range"></a>Selection 与 Range</h2><h3 id="1-Selection"><a href="#1-Selection" class="headerlink" title="1. Selection"></a>1. Selection</h3><blockquote>
+<p>Selection 对象表示用户选择的文本范围或插入符号的当前位置。它代表页面中的文本选区，可能横跨多个元素。文本选区由用户拖拽鼠标经过文字而产生</p>
+</blockquote>
+<p>上面是 MDN 对 Selection 的介绍，而在实际中，我们可以通过 <code>document.getSelection</code>获取 Selection 对象。</p>
 <h2 id="可编辑组件场景下的操作"><a href="#可编辑组件场景下的操作" class="headerlink" title="可编辑组件场景下的操作"></a>可编辑组件场景下的操作</h2>
                 
               </div>
@@ -321,7 +325,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年11月12日</div>
+          <div>2022年11月13日</div>
         </div>
       
       <div class="license-meta-item">
