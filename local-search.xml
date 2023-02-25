@@ -4,11 +4,24 @@
   
   
   <entry>
+    <title>外文翻译-Better JS scheduling with isInputPending()</title>
+    <link href="/2023/02/26/%E5%A4%96%E6%96%87%E7%BF%BB%E8%AF%91-Better-JS-scheduling-with-isInputPending/"/>
+    <url>/2023/02/26/%E5%A4%96%E6%96%87%E7%BF%BB%E8%AF%91-Better-JS-scheduling-with-isInputPending/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>协同文档基础：OT架构</title>
     <link href="/2022/10/23/%E5%8D%8F%E5%90%8C%E6%96%87%E6%A1%A3%E5%9F%BA%E7%A1%80%EF%BC%9AOT%E6%9E%B6%E6%9E%84/"/>
     <url>/2022/10/23/%E5%8D%8F%E5%90%8C%E6%96%87%E6%A1%A3%E5%9F%BA%E7%A1%80%EF%BC%9AOT%E6%9E%B6%E6%9E%84/</url>
     
-    <content type="html"><![CDATA[<p>协同文档是一个庞大的技术体系，成熟的协同文档系统大概需要提供以下几种能力：</p><ol><li>基础的富文本编辑与渲染功能</li><li>稳定的协同编辑处理能力</li><li>协同网络模型，保证服务器和客户端之间的文档模型一致</li></ol><p>而其中，最核心的就是要解决多用户同时编辑的多端冲突问题。目前有以下几种应用较广、较为的成熟技术解决方案。</p><ul><li>Diff-Patch<br>Diff-Patch 算法的本质类似于 git 的 diff，在多用户的变更遇到冲突时，将选择权交予给用户，由用户进行选择，决定最终的编辑结果。</li><li>编辑锁<br>当一位用户在编辑某一段文本时，便将该文本加锁，此时其他用户无法编辑该段内容。</li><li>使用一致性算法<br>使用一致性算法底层原理很简单，目的是希望通过一系列的算法处理，在多个客户端生成一致性的操作结果，这其中使用的最为广泛的算法是 CRDT 和 OT 算法。</li></ul><p>本篇文章，我们将注意力主要放在 OT 算法上，探究 OT 算法的实现原理，从而对协同文档的底层有更深入的了解。</p><h2 id="OT-算法的工作流程"><a href="#OT-算法的工作流程" class="headerlink" title="OT 算法的工作流程"></a>OT 算法的工作流程</h2><p>OT 算法底层本质上是一种转换算法。是为了解决多端场景下，将不同用户的操作转化为相同影响的变更操作。在 <a href="https://github.com/Operational-Transformation/ot.js/">ot.js Github repository</a>中，为我们提供了一个可视化的 OT 工作流程工具。</p><img src="/2022/10/23/%E5%8D%8F%E5%90%8C%E6%96%87%E6%A1%A3%E5%9F%BA%E7%A1%80%EF%BC%9AOT%E6%9E%B6%E6%9E%84/ot-demo-1.png" class="" title="ot"><p>首先，客户端 Alice 以及 客户端 Bob 同时在对下面这篇文章进行编辑行为。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">Lorem.ipsum<br></code></pre></td></tr></table></figure><p>Alice 与 Bob 同时在 Lorem 后，也就是偏移为 5 处，插入字符。Alice 插入 A，Bob 插入 B。此时站在 Alice 与 Bob 的角度，他们的文档内容分别是：<code>LoremA.ipsum</code>，以及 <code>LoremB.ipsum</code>。</p><p>由于多年单身的麒麟臂，Alice 的变动记录先于 Bob 发送至了编辑器的后台编辑服务，紧接着 Bob 的变动记录也紧随而至。</p><p>Bob 也收到了由服务器下发的 A 的变动 OP，也就是在偏移为 5 处，插入字符 A。此时 Bob 的文档内容更新为<code>LoremAB.ipsum</code>.这一变动显然是符合我们的预期的。</p>]]></content>
+    <content type="html"><![CDATA[<p>协同文档是一个庞大的技术体系，成熟的协同文档系统大概需要提供以下几种能力：</p><ol><li>基础的富文本编辑与渲染功能</li><li>稳定的协同编辑处理能力</li><li>协同网络模型，保证服务器和客户端之间的文档模型一致</li></ol><p>而其中，最核心的就是要解决多用户同时编辑的多端冲突问题。目前有以下几种应用较广、较为的成熟技术解决方案。</p><ul><li>Diff-Patch<br>Diff-Patch 算法的本质类似于 git 的 diff，在多用户的变更遇到冲突时，将选择权交予给用户，由用户进行选择，决定最终的编辑结果。</li><li>编辑锁<br>当一位用户在编辑某一段文本时，便将该文本加锁，此时其他用户无法编辑该段内容。</li><li>使用一致性算法<br>使用一致性算法底层原理很简单，目的是希望通过一系列的算法处理，在多个客户端生成一致性的操作结果，这其中使用的最为广泛的算法是 CRDT 和 OT 算法。</li></ul><p>本篇文章，我们将注意力主要放在 OT 算法上，探究 OT 算法的实现原理，从而对协同文档的底层有更深入的了解。</p><h2 id="OT-算法的工作流程"><a href="#OT-算法的工作流程" class="headerlink" title="OT 算法的工作流程"></a>OT 算法的工作流程</h2><p>OT 算法底层本质上是一种转换算法。是为了解决多端场景下，将不同用户的操作转化为相同影响的变更操作。在 <a href="https://github.com/Operational-Transformation/ot.js/">ot.js Github repository</a>中，为我们提供了一个可视化的 OT 工作流程工具。</p><img src="/2022/10/23/%E5%8D%8F%E5%90%8C%E6%96%87%E6%A1%A3%E5%9F%BA%E7%A1%80%EF%BC%9AOT%E6%9E%B6%E6%9E%84/ot-demo-1.png" class="" title="ot"><p>首先，客户端 Alice 以及 客户端 Bob 同时在对下面这篇文章进行编辑行为。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs text">Lorem.ipsum<br></code></pre></td></tr></table></figure><p>Alice 与 Bob 同时在 Lorem 后，也就是偏移为 5 处，插入字符。Alice 插入 A，Bob 插入 B。此时站在 Alice 与 Bob 的角度，他们的文档内容分别是：<code>LoremA.ipsum</code>，以及 <code>LoremB.ipsum</code>。</p><p>由于多年单身的麒麟臂，Alice 的变动记录先于 Bob 发送至了编辑器的后台编辑服务，紧接着 Bob 的变动记录也紧随而至。</p><p>Bob 也收到了由服务器下发的 A 的变动 OP，也就是在偏移为 5 处，插入字符 A。此时 Bob 的文档内容更新为<code>LoremAB.ipsum</code>.这一变动显然是符合我们的预期的。</p><p>而当 Alice 收到 Bob 的 op 操作变更时，如果我们按照上面一步的操作，</p>]]></content>
     
     
     
